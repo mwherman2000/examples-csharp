@@ -19,20 +19,20 @@ namespace StructExample
 
         public static void Put(byte[] key, Point2 p)
         {
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#X")), p.X);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#Y")), p.Y);
+            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#Point2.X")), p.X);
+            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#Point2.Y")), p.Y);
         }
 
         public static void Put(string key, Point2 p)
         {
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#X", p.X);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#Y", p.Y);
+            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#Point2.X", p.X);
+            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#Point2.Y", p.Y);
         }
 
         public static Point2 Get(byte[] key)
         {
-            int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#X"))).AsBigInteger();
-            int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#Y"))).AsBigInteger();
+            int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#Point2.X"))).AsBigInteger();
+            int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, Helper.AsByteArray("/#Point2.Y"))).AsBigInteger();
             Point2 p = new Point2();
             p.X = x;
             p.Y = y;
@@ -41,8 +41,8 @@ namespace StructExample
 
         public static Point2 Get(string key)
         {
-            int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#X").AsBigInteger();
-            int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#Y").AsBigInteger();
+            int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#Point2.X").AsBigInteger();
+            int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, key + "/#Point2.Y").AsBigInteger();
             Point2 p = new Point2();
             p.X = x;
             p.Y = y;
