@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.tasks" />
+    <None Include="nmap.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
