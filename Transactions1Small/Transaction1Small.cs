@@ -30,8 +30,8 @@ namespace Transactions1
                 //Console.WriteLine("dobOffset " + dobOffset.ToString());
                 Runtime.Notify("bytesOffset ", bytesOffset);
                 Runtime.Notify("dobOffset ", dobOffset);
-                dobBytes[dobOffset + 3] = bytes[bytesOffset + 0];
-                dobBytes[dobOffset + 2] = bytes[bytesOffset + 1];
+                dobBytes[dobOffset + 3] = bytes[bytesOffset + 0];  // NEO Debugger is throwing an exception here
+                dobBytes[dobOffset + 2] = bytes[bytesOffset + 1];  // This runs fine under Windows (check out the TransAsDisplayOrderBytesTest1 project)
                 dobBytes[dobOffset + 1] = bytes[bytesOffset + 2];
                 dobBytes[dobOffset + 0] = bytes[bytesOffset + 3];
                 dobOffset -= 4;
