@@ -1,9 +1,11 @@
 ﻿using Neo.Cryptography;
+using Neo.SmartContract;
 using Neo.VM;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,14 +16,23 @@ namespace HelloWorldUnitTester
         static void Main(string[] args)
         {
             var engine = new ExecutionEngine(null, Crypto.Default);
-            engine.LoadScript(File.ReadAllBytes(@"..\..\..\Transactions4Small\bin\debug\Transactions4Small.avm"));
+            engine.LoadScript(File.ReadAllBytes(@"..\..\..\ReturnOperation1\bin\debug\ReturnOperation1.avm"));
 
-            int value = 1234;
-            Console.WriteLine("value:\t" + value.ToString() + "\t" + value.ToString("X"));
+            string operation = "hello";
+            Console.WriteLine("value:\t" + operation.ToString() + "\t" + operation.ToString());
 
+            ContractParameter a3 = new ContractParameter(ContractParameterType.Integer);
+            a3.Value = 3;
+            ContractParameter a4 = new ContractParameter(ContractParameterType.Integer);
+            a4.Value = 4;
+            ContractParameter[] args2 = { a3, a4 };
+            ContractParameter objs = new ContractParameter(ContractParameterType.Array);
+            objs.Value = args2;
+;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(value); // corresponds to the parameter value
+                sb.EmitPush(objs);
+                sb.EmitPush(operation);
                 engine.LoadScript(sb.ToArray());
             }
 
@@ -40,12 +51,13 @@ namespace HelloWorldUnitTester
                 engine.Execute(); // start execution
             }
 
+            Console.WriteLine("engine.State:\t{0}", engine.State.ToString());
             DumpExecutionContext(engine);
             DumpAltStack(engine);
             DumpEvaluationStack(engine);
 
-            var result = engine.EvaluationStack.Peek().GetBigInteger(); // set the return value here
-            Console.WriteLine($"Execution result {result}");
+            //var result = engine.EvaluationStack.Peek().GetBigInteger(); // set the return value here
+            //Console.WriteLine($"Execution result {result}");
             Console.ReadLine();
         }
 
@@ -54,6 +66,7 @@ namespace HelloWorldUnitTester
             var stack = engine.AltStack;
 
             int offset = 0;
+            Console.WriteLine("AlStack ----------");
             Console.WriteLine("AltStack.Count:\t{0}", stack.Count);
             foreach (var stackItem in stack)
             {
@@ -65,6 +78,11 @@ namespace HelloWorldUnitTester
 
         private static void DumpEvaluationStack(ExecutionEngine engine)
         {
+            Console.WriteLine("EvaluationStack ----------");
+            //StackItem peekItem = engine.EvaluationStack.Peek(0);
+            //Console.WriteLine("EvaluationStack.Peek():" + peekItem.ToString());
+            //DumpStackItem(peekItem);
+
             var stack = engine.EvaluationStack;
 
             int offset = 0;
@@ -82,6 +100,13 @@ namespace HelloWorldUnitTester
             var typeStackItem = stackItem.GetType();
             switch (typeStackItem.ToString())
             {
+                case "Neo.VM.Types.Integer":
+                    {
+                        Neo.VM.Types.Integer value = (Neo.VM.Types.Integer)stackItem;
+                        BigInteger bigvalue = value.GetBigInteger();
+                        Console.WriteLine("Neo.VM.Types.Integer:\t{0}", bigvalue.ToString());
+                        break;
+                    }
                 case "Neo.VM.Types.Array":
                     {
                         Neo.VM.Types.Array items = (Neo.VM.Types.Array)stackItem;
@@ -95,24 +120,37 @@ namespace HelloWorldUnitTester
                             {
                                 case "Neo.VM.Types.Boolean":
                                     {
+                                        int offset2 = 0;
                                         Neo.VM.Types.Boolean b = (Neo.VM.Types.Boolean)item;
-                                        Console.WriteLine("    Neo.VM.Types.Boolean:\t{0}\t{1}", offset, b.GetBoolean());
+                                        Console.WriteLine("    Neo.VM.Types.Boolean:\t{0}\t{1}", offset2, b.GetBoolean());
                                         break;
                                     }
                                 case "Neo.VM.Types.Integer":
                                     {
+                                        int offset2 = 0;
                                         Neo.VM.Types.Integer i = (Neo.VM.Types.Integer)item;
-                                        Console.WriteLine("    Neo.VM.Types.Integer:\t{0}\t{1}\t{2}", offset, i.GetBigInteger(), i.GetBigInteger().ToString("X"));
+                                        Console.WriteLine("    Neo.VM.Types.Integer:\t{0}\t{1}\t{2}", offset2, i.GetBigInteger(), i.GetBigInteger().ToString("X"));
+                                        break;
+                                    }
+                                case "Neo.VM.Types.Array":
+                                    {
+                                        var items2 = ((Neo.VM.Types.Array)item);
+                                        int offset2 = 0;
+                                        foreach (var item2 in items2)
+                                        {
+                                            Console.WriteLine("    Neo.VM.Types.Array:\t{0}\t{1}\t{2}\t{3}", offset2, item2.GetBigInteger(), item2.GetBigInteger() , item2.ToString());
+                                            offset2++;
+                                        }
                                         break;
                                     }
                                 case "Neo.VM.Types.ByteArray":
                                     {
                                         byte[] items2 = ((Neo.VM.Types.ByteArray)item).GetByteArray();
-                                        //int offset2 = 0;
+                                        int offset2 = 0;
                                         foreach (var item2 in items2)
                                         {
-                                            Console.WriteLine("    Neo.VM.Types.ByteArray:\t{0}\t{1}\t{2}\t{3}", offset, item2.ToString(), item2.ToString("X"), Convert.ToChar(item2).ToString());
-                                            offset++;
+                                            Console.WriteLine("    Neo.VM.Types.ByteArray:\t{0}\t{1}\t{2}\t{3}", offset2, item2.ToString(), item2.ToString("X"), Convert.ToChar(item2).ToString());
+                                            offset2++;
                                         }
                                         break;
                                     }
@@ -131,7 +169,7 @@ namespace HelloWorldUnitTester
                         int offset = 0;
                         foreach (var item in items)
                         {
-                            Console.WriteLine("Neo.VM.Types.ByteArray:\t{0}\t{1}\t{2}", offset, item.ToString(), item.ToString("X"));
+                            Console.WriteLine("Neo.VM.Types.ByteArray:\t{0}\t{1}\t{2}\t{3}", offset, item.ToString(), item.ToString("X"), Convert.ToChar(item).ToString());
                             offset++;
                         }
                         break;
@@ -145,6 +183,7 @@ namespace HelloWorldUnitTester
 
         private static void DumpExecutionContext(ExecutionEngine engine)
         {
+            Console.WriteLine("CurrentContext ----------");
             using (var ctx = engine.CurrentContext)
             {
                 Console.WriteLine("State:\t" + engine.State.ToString());

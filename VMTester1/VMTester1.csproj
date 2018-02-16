@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1A13DEF9-79CC-4F65-A926-42843B43F5A8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>NeoContract6UnitTester</RootNamespace>
-    <AssemblyName>NeoContract6UnitTester</AssemblyName>
+    <RootNamespace>VMTester1</RootNamespace>
+    <AssemblyName>VMTester1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

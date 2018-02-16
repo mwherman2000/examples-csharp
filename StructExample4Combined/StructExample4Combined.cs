@@ -70,7 +70,7 @@ namespace StructExample
         private const string _classKeyTag = "/#" + _className + ".";
         private static readonly byte[] _bclassKeyTag = Helper.AsByteArray(_classKeyTag);
 
-        private Point() // return a "null" Point
+        private Point()
         {
             //Initialize(this);
             //Log("Point()", this);

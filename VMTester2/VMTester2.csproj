@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E7EF23EE-3B2A-421A-898A-21E6288AFC5E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>HelloWorldUnitTester</RootNamespace>
-    <AssemblyName>HelloWorldUnitTester</AssemblyName>
+    <RootNamespace>VMTester2</RootNamespace>
+    <AssemblyName>VMTester2</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
