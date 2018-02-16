@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions3Small", "Trans
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions4Small", "Transactions4Small\Transactions4Small.csproj", "{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructExample4Combined", "StructExample4Combined\StructExample4Combined.csproj", "{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,14 +8,23 @@ namespace Transactions4Small
 {
     public static class NeoExtensionMethods
     {
-        private const int BUFSIZE = 200;
-        static byte[] dobBytes = new byte[BUFSIZE];
+        //private const int BUFSIZE = 200;
+        //static byte[] dobBytes = new byte[BUFSIZE];
 
         public static byte[] AsDisplayOrderBytes(this byte[] bytes)
         {
-            //dobBytes.Initialize();
+            const int BUFSIZE = 8;
+            //byte[]dobBytes = new byte[BUFSIZE];
+            byte[] dobBytes = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
             dobBytes[0] = 0;
-            for (int i = BUFSIZE - 1; i >= 0; i--) dobBytes[i] = 0;
+            dobBytes[1] = 1;
+            dobBytes[2] = 2;
+            dobBytes[3] = 3;
+            dobBytes[4] = 4;
+            dobBytes[5] = 5;
+            dobBytes[6] = 6;
+            dobBytes[7] = 7;
+            for (int i = BUFSIZE - 1; i >= 0; i--) dobBytes[i] = (byte)i; // <== Exception here
 
             //byte[] dobBytes = new byte[bytes.Length];
             //byte[] dobBytes = (byte[])bytes.Clone();

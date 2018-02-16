@@ -14,7 +14,7 @@ namespace HelloWorldUnitTester
         static void Main(string[] args)
         {
             var engine = new ExecutionEngine(null, Crypto.Default);
-            engine.LoadScript(File.ReadAllBytes(@"..\..\..\Transactions1Small\bin\debug\Transactions1Small.avm"));
+            engine.LoadScript(File.ReadAllBytes(@"..\..\..\Transactions4Small\bin\debug\Transactions4Small.avm"));
 
             int value = 1234;
             Console.WriteLine("value:\t" + value.ToString() + "\t" + value.ToString("X"));
@@ -108,7 +108,7 @@ namespace HelloWorldUnitTester
                                 case "Neo.VM.Types.ByteArray":
                                     {
                                         byte[] items2 = ((Neo.VM.Types.ByteArray)item).GetByteArray();
-                                        int offset2 = 0;
+                                        //int offset2 = 0;
                                         foreach (var item2 in items2)
                                         {
                                             Console.WriteLine("    Neo.VM.Types.ByteArray:\t{0}\t{1}\t{2}\t{3}", offset, item2.ToString(), item2.ToString("X"), Convert.ToChar(item2).ToString());

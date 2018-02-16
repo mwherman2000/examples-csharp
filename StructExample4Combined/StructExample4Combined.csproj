@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DCF801C1-47CF-4FAB-9C02-6CE0C0933F92}</ProjectGuid>
+    <ProjectGuid>{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StructExample3Combined</RootNamespace>
-    <AssemblyName>StructExample3Combined</AssemblyName>
+    <RootNamespace>StructExample4Combined</RootNamespace>
+    <AssemblyName>StructExample4Combined</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StructExample3Combined.cs" />
+    <Compile Include="StructExample4Combined.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nmap.bat">
