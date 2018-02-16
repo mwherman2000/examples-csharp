@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions2Small", "Trans
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions3Small", "Transactions3Small\Transactions3Small.csproj", "{A549ED49-E235-4241-8384-4AC7FBF79775}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions4Small", "Transactions4Small\Transactions4Small.csproj", "{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{A549ED49-E235-4241-8384-4AC7FBF79775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A549ED49-E235-4241-8384-4AC7FBF79775}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A549ED49-E235-4241-8384-4AC7FBF79775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82DC23BE-E109-434F-8BA6-7A15EB88D9C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
