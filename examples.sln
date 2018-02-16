@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMTester1", "VMTester1\VMTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMTester2", "VMTester2\VMTester2.csproj", "{E7EF23EE-3B2A-421A-898A-21E6288AFC5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions2Small", "Transactions2Small\Transactions2Small.csproj", "{A337B7D2-4F32-427F-B5B4-B6B056D4F0B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{E7EF23EE-3B2A-421A-898A-21E6288AFC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7EF23EE-3B2A-421A-898A-21E6288AFC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7EF23EE-3B2A-421A-898A-21E6288AFC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A337B7D2-4F32-427F-B5B4-B6B056D4F0B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A337B7D2-4F32-427F-B5B4-B6B056D4F0B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A337B7D2-4F32-427F-B5B4-B6B056D4F0B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A337B7D2-4F32-427F-B5B4-B6B056D4F0B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
