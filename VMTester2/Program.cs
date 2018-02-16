@@ -56,8 +56,12 @@ namespace HelloWorldUnitTester
             DumpAltStack(engine);
             DumpEvaluationStack(engine);
 
-            //var result = engine.EvaluationStack.Peek().GetBigInteger(); // set the return value here
-            //Console.WriteLine($"Execution result {result}");
+            var result = engine.EvaluationStack.Peek().GetBigInteger(); // set the return value here
+            Console.WriteLine($"Execution result {result}");
+            var result2 = engine.EvaluationStack.Peek(); // set the return value here
+            Console.WriteLine($"Execution result {result2}");
+            var result3 = engine.EvaluationStack.Peek().GetString(); // set the return value here
+            Console.WriteLine($"Execution result {result3}");
             Console.ReadLine();
         }
 
@@ -138,7 +142,7 @@ namespace HelloWorldUnitTester
                                         int offset2 = 0;
                                         foreach (var item2 in items2)
                                         {
-                                            Console.WriteLine("    Neo.VM.Types.Array:\t{0}\t{1}\t{2}\t{3}", offset2, item2.GetBigInteger(), item2.GetBigInteger() , item2.ToString());
+                                            Console.WriteLine("    Neo.VM.Types.Array:\t{0}\t{1}\t{2}", offset2, item2.GetBigInteger(), item2.GetBigInteger());
                                             offset2++;
                                         }
                                         break;
