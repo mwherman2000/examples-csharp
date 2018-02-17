@@ -23,6 +23,9 @@ namespace VMTest2
         // http://docs.neo.org/en-us/sc/test.html
         // ...and @relfos' neo-debugger project: https://github.com/Relfos/neo-debugger-tools
 
+        // **NOTE:** The `contract` created below is simply an in-memory contract. 
+        // It is not deployed and the contract is not used in the subsequent code that runs the script in the VM
+
         // Reference: https://github.com/mwherman2000/neo-windocs/blob/master/windocs/quickstart-csharp/09-deploytestsmartcontract.md#import-the-existing-developer-account-from-the-neo-privatenet-docker-container
         // Reference: https://hub.docker.com/r/metachris/neo-privnet-with-gas/#Wallet
         // ...as displayed by [account] > View Private Key in neo-gui-developer
