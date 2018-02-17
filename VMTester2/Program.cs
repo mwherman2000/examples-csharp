@@ -1,6 +1,10 @@
-﻿using Neo.Cryptography;
+﻿using Neo;
+using Neo.Cryptography;
+using Neo.Cryptography.ECC;
 using Neo.SmartContract;
 using Neo.VM;
+using Neo.Core;
+//using Neo.SmartContract.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,35 +12,92 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Neo.Implementations.Wallets.EntityFramework;
 
-namespace HelloWorldUnitTester
+namespace VMTest2
 {
     class Program
     {
+        // Reference: https://github.com/mwherman2000/neo-windocs/blob/master/windocs/quickstart-csharp/09-deploytestsmartcontract.md#import-the-existing-developer-account-from-the-neo-privatenet-docker-container
+        // Reference: https://hub.docker.com/r/metachris/neo-privnet-with-gas/#Wallet
+        // ...as displayed by [account] > View Private Key in neo-gui-developer
+        public const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
+        public const string WIF2Address = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
+        public const string WIF2PublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
+        public const string WIF2PrivateKeyHex = "1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb";
+        //public static readonly byte[] WIF2AddressScriptHash = Neo.SmartContract.Framework.Helper.ToScriptHash(WIF2Address);
+
         static void Main(string[] args)
         {
             var engine = new ExecutionEngine(null, Crypto.Default);
+
             engine.LoadScript(File.ReadAllBytes(@"..\..\..\ReturnOperation1\bin\debug\ReturnOperation1.avm"));
+            //public class ReturnOperation1 : SmartContract
+            //{
+            //    public static string Main(string operation, object[] args)
+            //    {
+            //        string message = operation + " world";
+            //        Runtime.Log(message);
+            //        Runtime.Notify(operation, message);
+            //        return message;
+            //    }
+            //}
 
-            string operation = "hello";
-            Console.WriteLine("value:\t" + operation.ToString() + "\t" + operation.ToString());
+            // Dump out the loaded script...
+            byte[] scriptReturnOperation1 = engine.CurrentContext.Script;
+            Console.WriteLine("CurrentContext.Script:\t" + scriptReturnOperation1.Length);
+            Console.WriteLine("CurrentContext.Script:\t" + BytesToHexString(scriptReturnOperation1).Length);
+            Console.WriteLine("CurrentContext.Script:\t" + BytesToHexString(scriptReturnOperation1));
+            Console.WriteLine("CurrentContext.Script:\t" + scriptReturnOperation1.ToHexString().Length);
+            Console.WriteLine("CurrentContext.Script:\t" + scriptReturnOperation1.ToHexString());
+            //Console.WriteLine("CurrentContext.Script:\t" + script.ToHexString().HexToBytes().Length);
 
-            ContractParameter a3 = new ContractParameter(ContractParameterType.Integer);
-            a3.Value = 3;
-            ContractParameter a4 = new ContractParameter(ContractParameterType.Integer);
-            a4.Value = 4;
-            ContractParameter[] args2 = { a3, a4 };
-            ContractParameter objs = new ContractParameter(ContractParameterType.Array);
-            objs.Value = args2;
+            // Dump out the script's hash
+            var scriptHash = engine.CurrentContext.ScriptHash;
+            Console.WriteLine("CurrentContext.scriptHash:\t" + BytesToHexString(scriptHash).Length);
+            Console.WriteLine("CurrentContext.scriptHash:\t" + BytesToHexString(scriptHash) + " wrong");
+            var scriptHash2 = scriptReturnOperation1.ToScriptHash();
+            Console.WriteLine("scriptReturnOperation1.ToScriptHash():\t" + scriptHash2.ToString().Length);
+            Console.WriteLine("scriptReturnOperation1.ToScriptHash():\t" + scriptHash2.ToString() + " good");
+
+            // Create an Contract Account and dump out it's properties (e.g. Contract Account address)
+            // NOTE: You need to have th NEO privatenet configured and running. `contract.Address` needs config.json file. Checkout the following for details:
+            //       https://github.com/mwherman2000/neo-windocs/blob/master/windocs/quickstart-csharp/07-installneoprivatenetcontainer.md
+            //UInt160 accountPublicKeyHash = ((ECPoint)(object)WIF2PublicKey).EncodePoint(true).ToScriptHash();
+            ContractParameterType[] scriptParameterListDeclaration = { ContractParameterType.String, ContractParameterType.Array };
+            Contract contract = VerificationContract.Create(scriptParameterListDeclaration, scriptReturnOperation1);
+            string contractAddress = contract.Address;
+            string contractScript = contract.Script.ToHexString();
+            string contractScriptHash = contract.ScriptHash.ToString();
+            Console.WriteLine("contractAddress:\t" + contractAddress.Length.ToString() + " " + contractAddress);
+            Console.WriteLine("contractScriptHash:\t" + contractScriptHash.Length.ToString() + " " + contractScriptHash);
+            Console.WriteLine("contractScript:\t" + contractScript.Length.ToString() + " " + contractScript);
+
+            //neo-gui hash:   0x431bfd28ecb875e807b8e8be365120adf63fb987
+            //scriptHash:       87B93FF6AD205136BEE8B807E875B8EC28FD1B43  ReturnOperation1.avm
+            //scriptHash2:    0x431bfd28ecb875e807b8e8be365120adf63fb987
+            //neo-gui Address:  AU9WnnGD8AY3NqAqyZ98cF59X4SCk81aF9
+            //contract.Address: AU9WnnGD8AY3NqAqyZ98cF59X4SCk81aF9
+
+            string operationParameter = "hello";
+            Console.WriteLine("operationParameter:\t" + operationParameter.ToString() + "\t" + operationParameter.ToString());
+
+            ContractParameter integer1 = new ContractParameter(ContractParameterType.Integer);
+            integer1.Value = 3;
+            ContractParameter integer2 = new ContractParameter(ContractParameterType.Integer);
+            integer2.Value = 4;
+            ContractParameter[] arrayOfIntegers = { integer1, integer2 };
+            ContractParameter arrayOfObjectParameter = new ContractParameter(ContractParameterType.Array);
+            arrayOfObjectParameter.Value = arrayOfIntegers;
 ;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(objs);
-                sb.EmitPush(operation);
+                sb.EmitPush(arrayOfObjectParameter);
+                sb.EmitPush(operationParameter);
                 engine.LoadScript(sb.ToArray());
             }
 
-            bool singleStep = false;
+            bool singleStep = false; // Debugging the debugger
             if (singleStep)
             {
                 engine.AddBreakPoint(0);
@@ -195,11 +256,11 @@ namespace HelloWorldUnitTester
                 Console.WriteLine("NextInstruction:\t" + ctx.NextInstruction.ToString());
                 var script = ctx.Script.ToArray();
                 int offset = 0;
-                OpCode eOpCode;
+                Neo.VM.OpCode eOpCode;
                 string eOpCodeName;
                 foreach (var opcode in script)
                 {
-                    eOpCode = (OpCode)Enum.ToObject(typeof(OpCode), opcode);
+                    eOpCode = (Neo.VM.OpCode)Enum.ToObject(typeof(Neo.VM.OpCode), opcode);
                     eOpCodeName = eOpCode.ToString();
                     string tag = "";
                     if (offset == ctx.InstructionPointer) tag = "<<< NEXT";
@@ -207,6 +268,14 @@ namespace HelloWorldUnitTester
                     offset++;
                 }
             }
+        }
+
+        // Reference: https://stackoverflow.com/questions/623104/byte-to-hex-string
+        private static string BytesToHexString(byte[] bytes)
+        {
+            string s = "";
+            if (bytes.Length > 0) s = BitConverter.ToString(bytes).Replace("-", string.Empty);
+            return s;
         }
     }
 }

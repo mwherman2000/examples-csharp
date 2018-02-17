@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructExample4Combined", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReturnOperation1", "ReturnOperation1\ReturnOperation1.csproj", "{4F059B5B-A4F9-4E18-A4F0-ADB1FC87C838}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitcoinSecret1", "BitcoinSecret1\BitcoinSecret1.csproj", "{8530E904-E76A-4B03-8514-6716DC8CBE76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractAccount1", "ContractAccount1\ContractAccount1.csproj", "{A13DD802-D33B-4376-975B-C36ECEB7AEC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +139,14 @@ Global
 		{4F059B5B-A4F9-4E18-A4F0-ADB1FC87C838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F059B5B-A4F9-4E18-A4F0-ADB1FC87C838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F059B5B-A4F9-4E18-A4F0-ADB1FC87C838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8530E904-E76A-4B03-8514-6716DC8CBE76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8530E904-E76A-4B03-8514-6716DC8CBE76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8530E904-E76A-4B03-8514-6716DC8CBE76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8530E904-E76A-4B03-8514-6716DC8CBE76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A13DD802-D33B-4376-975B-C36ECEB7AEC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A13DD802-D33B-4376-975B-C36ECEB7AEC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A13DD802-D33B-4376-975B-C36ECEB7AEC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A13DD802-D33B-4376-975B-C36ECEB7AEC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
