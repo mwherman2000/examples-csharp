@@ -21,10 +21,10 @@ namespace VMTest2
         // Reference: https://github.com/mwherman2000/neo-windocs/blob/master/windocs/quickstart-csharp/09-deploytestsmartcontract.md#import-the-existing-developer-account-from-the-neo-privatenet-docker-container
         // Reference: https://hub.docker.com/r/metachris/neo-privnet-with-gas/#Wallet
         // ...as displayed by [account] > View Private Key in neo-gui-developer
-        public const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
-        public const string WIF2Address = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
-        public const string WIF2PublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
-        public const string WIF2PrivateKeyHex = "1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb";
+        //public const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
+        //public const string WIF2Address = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
+        //public const string WIF2PublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
+        //public const string WIF2PrivateKeyHex = "1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb";
         //public static readonly byte[] WIF2AddressScriptHash = Neo.SmartContract.Framework.Helper.ToScriptHash(WIF2Address);
 
         static void Main(string[] args)
@@ -32,6 +32,10 @@ namespace VMTest2
             var engine = new ExecutionEngine(null, Crypto.Default);
 
             engine.LoadScript(File.ReadAllBytes(@"..\..\..\ReturnOperation1\bin\debug\ReturnOperation1.avm"));
+
+            //
+            // ReturnOperation1.avm
+            //
             //public class ReturnOperation1 : SmartContract
             //{
             //    public static string Main(string operation, object[] args)
