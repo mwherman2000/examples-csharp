@@ -14,6 +14,10 @@ namespace MainReturnsObject1
             // In C#.NEO, neon.exe is not always able to compile a switch() statement
 
             Runtime.Notify("operation", operation);
+            Runtime.Notify("args[0]", args[0]);
+
+            //operation = (string)args[0]; // workaround for an issue in the current debugger
+            //Runtime.Notify("operation", operation);
 
             if (operation == "int")
             {

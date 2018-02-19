@@ -44,7 +44,7 @@ namespace ContractAccount1
             {
                 Runtime.Notify("GetOutputs: AssetId", o.AssetId.Length, o.AssetId);
                 Runtime.Notify("GetOutputs: ScriptHash", o.ScriptHash.Length, o.ScriptHash);
-                Runtime.Notify("GetOutputs: Value", o.Value);
+                Runtime.Notify("GetOutputs: Value$NEO", o.Value);
             }
 
             Runtime.Log("tx.GetReferences()...");
@@ -54,7 +54,7 @@ namespace ContractAccount1
             {
                 Runtime.Notify("GetReferences: AssetId", r.AssetId.Length, r.AssetId);
                 Runtime.Notify("GetReferences: ScriptHash", r.ScriptHash.Length, r.ScriptHash);
-                Runtime.Notify("GetReferences: Value", r.Value);
+                Runtime.Notify("GetReferences: Value$NEO", r.Value);
             }
 
             //Runtime.Log("tx.GetUnspentCoins...");

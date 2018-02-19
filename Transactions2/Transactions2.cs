@@ -49,6 +49,16 @@ namespace Transactions2
             Runtime.Notify("0xbadbad", 0xbadbad);
             Runtime.Notify("(Boolean)true", (Boolean)true);
             Runtime.Notify("(Boolean)false", (Boolean)false);
+            Runtime.Notify("Value$INT 16", 16);
+            Runtime.Notify("Value BI 16", (BigInteger)16);
+            Runtime.Notify("Value$neo 16", 16);
+            Runtime.Notify("Value$neo BI 16", (BigInteger)16);
+            Runtime.Notify("Value$INT 123456789", 123456789);
+            Runtime.Notify("Value BI 123456789", (BigInteger)123456789);
+            Runtime.Notify("Value$neo 123456789", 123456789);
+            Runtime.Notify("Value$NEO BI 1234", (BigInteger)1234);
+            Runtime.Notify("Value$NEO BI 123456789123", (BigInteger)123456789123);
+            Runtime.Notify("Value$gas BI 123456789", (BigInteger)123456789);
 
             Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
             Runtime.Log("ExecutionEngine tests: tx.GetInputs()...");
@@ -67,7 +77,7 @@ namespace Transactions2
             {
                 Runtime.Notify("GetOutputs: AssetId", /* o.AssetId.Length, */ o.AssetId);
                 Runtime.Notify("GetOutputs: ScriptHash", /* o.ScriptHash.Length, */ o.ScriptHash);
-                Runtime.Notify("GetOutputs: Value", o.Value);
+                Runtime.Notify("GetOutputs: Value$NEO", o.Value);
             }
 
             Runtime.Log("ExecutionEngine tests: tx.GetReferences()...");
@@ -77,7 +87,7 @@ namespace Transactions2
             {
                 Runtime.Notify("GetReferences: AssetId", /* r.AssetId.Length, */ r.AssetId);
                 Runtime.Notify("GetReferences: ScriptHash", /* r.ScriptHash.Length, */ r.ScriptHash);
-                Runtime.Notify("GetReferences: Value", r.Value);
+                Runtime.Notify("GetReferences: Value$NEO", r.Value);
             }
 
             //Runtime.Log("tx.GetUnspentCoins...");

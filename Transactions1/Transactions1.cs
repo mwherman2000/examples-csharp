@@ -98,7 +98,8 @@ namespace Transactions1
             Runtime.Notify("GetOutputs:", outputs.Length);
             foreach (TransactionOutput o in outputs)
             {
-                Runtime.Notify("GetOutputs: AssetId,ScriptHash,Value", o.AssetId, o.ScriptHash, o.Value);
+                Runtime.Notify("GetOutputs: AssetId,ScriptHash", o.AssetId, o.ScriptHash);
+                Runtime.Notify("GetOutputs: Value$NEO", o.Value);
             }
 
             Runtime.Log("tx.GetReferences...");
@@ -106,7 +107,8 @@ namespace Transactions1
             Runtime.Notify("GetReferences:", refs.Length);
             foreach (TransactionOutput r in refs)
             {
-                Runtime.Notify("GetReferences: AssetId,ScriptHash,Value", r.AssetId, r.ScriptHash, r.Value);
+                Runtime.Notify("GetReferences: AssetId,ScriptHash", r.AssetId, r.ScriptHash);
+                Runtime.Notify("GetReferences: Value$NEO", r.Value);
             }
 
             //Runtime.Log("tx.GetUnspentCoins...");
