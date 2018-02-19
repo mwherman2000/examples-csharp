@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using Neo.SmartContract.Framework;
 
 namespace StructExample
@@ -20,7 +21,8 @@ namespace StructExample
             SET,
             PUTTED,
             GETTED,
-            MISSING
+            MISSING,
+            TOMBSTONED
         }
 
         public static readonly byte[] NullHash = "".ToScriptHash();
@@ -72,17 +74,17 @@ namespace StructExample
 
         private Point()
         {
-            //Initialize(this);
-            //Log("Point()", this);
         }
 
-        //public Point(int x, int y) // return an initialized Point
-        //{
-        //    _x = x;
-        //    _y = y;
-        //    _state = NeoEntityModel.EntityState.SET;
-        //    Log("Point(x,y)", this);
-        //}
+        private static Point _Initialize(Point p)
+        {
+            p._x = 0;
+            p._y = 0;
+            p._state = NeoEntityModel.EntityState.NULL;
+            p._extension = NeoEntityModel.NullHash;
+            Log("Initialize(p)", p);
+            return p;
+        }
 
         public static void Log(string label, Point p)
         {
@@ -92,7 +94,7 @@ namespace StructExample
         public static Point New()
         {
             Point p = new Point();
-            Initialize(p);
+            _Initialize(p);
             Log("New()", p);
             return p;
         }
@@ -100,18 +102,8 @@ namespace StructExample
         public static Point Null()
         {
             Point p = new Point();
-            Initialize(p);
+            _Initialize(p);
             Log("Null()", p);
-            return p;
-        }
-
-        public static Point Initialize(Point p)
-        {
-            p._x = 0;
-            p._y = 0;
-            p._state = NeoEntityModel.EntityState.NULL;
-            p._extension = NeoEntityModel.NullHash;
-            Log("Initialize(p)", p);
             return p;
         }
 
@@ -122,7 +114,18 @@ namespace StructExample
             p._y = 0;
             p._state = NeoEntityModel.EntityState.MISSING;
             p._extension = NeoEntityModel.NullHash;
-            Log("New(x,y)", p);
+            Log("Missing(x,y)", p);
+            return p;
+        }
+
+        public static Point Tombstone()
+        {
+            Point p = new Point();
+            p._x = 0;
+            p._y = 0;
+            p._state = NeoEntityModel.EntityState.TOMBSTONED;
+            p._extension = NeoEntityModel.NullHash;
+            Log("Buried(x,y)", p);
             return p;
         }
 
@@ -152,6 +155,56 @@ namespace StructExample
             return (p._extension != NeoEntityModel.NullHash);
         }
 
+        public static Point Bury(byte[] key)
+        {
+            if (key.Length == 0) return Null(); // TODO - create NeoEntityModel.EntityState.BADKEY?
+
+            byte[] _bkeyTag = Helper.Concat(key, _bclassKeyTag);
+
+            Point p;
+            /*STA*/ byte[] bsta = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bSTA));
+            NeoTrace.Trace("Bury(byte[]).bs", bsta.Length, bsta);
+            if (bsta.Length == 0)
+            {
+                p = Point.Missing();
+            }
+            else // not MISSING - bury it
+            {
+                p = Point.Tombstone(); // TODO - should Bury() preserve the exist field values or re-initialize them? Preserve is cheaper but not as private
+                /*STA*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bSTA), (int)p._state);
+                /*EXT*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bEXT), p._extension);
+                /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bX), p._x);
+                /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bY), p._y);
+            }
+            Log("Bury(byte[]).p", p);
+            return p;
+        }
+
+        public static Point Bury(string key)
+        {
+            if (key.Length == 0) return Null(); // TODO - create NeoEntityModel.EntityState.BADKEY?
+
+            string _skeyTag = key + _classKeyTag;
+
+            Point p;
+            /*STA*/ byte[] bsta = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sSTA);
+            NeoTrace.Trace("Bury(byte[]).bs", bsta.Length, bsta);
+            if (bsta.Length == 0)
+            {
+                p = Point.Missing();
+            }
+            else // not MISSING - bury it
+            {
+                p = Point.Tombstone(); // TODO - should Bury() preserve the exist field values or re-initialize them? Preserve is cheaper but not as private
+                /*STA*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sSTA, (int)p._state);
+                /*EXT*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sEXT, p._extension);
+                /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sX, p._x);
+                /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sY, p._y);
+            }
+            Log("Bury(string).p", p);
+            return p;
+        }
+
         public static bool Put(byte[] key, Point p)
         {
             if (key.Length == 0) return false;
@@ -159,11 +212,11 @@ namespace StructExample
             byte[] _bkeyTag = Helper.Concat(key, _bclassKeyTag);
 
             p._state = NeoEntityModel.EntityState.PUTTED;
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bX), p._x);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bY), p._y);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bSTA), (int)p._state);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bEXT), p._extension);
-            return true;
+            /*STA*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bSTA), (int)p._state);
+            /*EXT*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bEXT), p._extension);
+            /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bX), p._x);
+            /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bY), p._y);
+          return true;
         }
 
         public static bool Put(string key, Point p)
@@ -173,10 +226,10 @@ namespace StructExample
             string _skeyTag = key + _classKeyTag;
 
             p._state = NeoEntityModel.EntityState.PUTTED;
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sX, p._x);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sY, p._y);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sSTA, (int)p._state);
-            Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sEXT, p._extension);
+            /*STA*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sSTA, (int)p._state);
+            /*EXT*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sEXT, p._extension);
+            /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sX, p._x);
+            /*FLD*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sY, p._y);
             return true;
         }
 
@@ -187,24 +240,33 @@ namespace StructExample
             byte[] _bkeyTag = Helper.Concat(key, _bclassKeyTag);
 
             Point p;
-            int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, _bX)).AsBigInteger();
-            int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, _bY)).AsBigInteger();
-            byte[] bs = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, _bSTA));
-            byte[] e = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(key, _bEXT));
-            NeoTrace.Trace("Get(byte[]).bs", bs.Length, bs);
-            if (bs.Length == 0)
+            /*STA*/ byte[] bsta = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bSTA));
+            NeoTrace.Trace("Get(byte[]).bs", bsta.Length, bsta);
+            if (bsta.Length == 0)
             {
                 p = Point.Missing();
             }
-            else
+            else // not MISSING
             {
-                int s = (int)bs.AsBigInteger();
-                p = new Point();
-                p._x = x;
-                p._y = y;
-                p._state = (NeoEntityModel.EntityState)s;
-                p._state = NeoEntityModel.EntityState.GETTED;
-                p._extension = e;
+                /*EXT*/ byte[] bext = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bEXT));
+                int ista = (int)bsta.AsBigInteger();
+                NeoEntityModel.EntityState sta = (NeoEntityModel.EntityState)ista;
+                if (sta == NeoEntityModel.EntityState.TOMBSTONED)
+                {
+                    p = Point.Tombstone();
+                    p._extension = bext; // TODO: does a Tomestone bury all of its extensions?
+                }
+                else // not MISSING && not TOMBSTONED
+                {
+                    p = new Point();
+                    /*FLD*/ int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bX)).AsBigInteger();
+                    /*FLD*/ int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, Helper.Concat(_bkeyTag, _bY)).AsBigInteger();
+                    p._x = x;
+                    p._y = y;
+                    p._state = sta;
+                    p._state = NeoEntityModel.EntityState.GETTED; /* OVERRIDE */
+                    p._extension = bext;
+                }
             }
             Log("Get(byte[]).p", p);
             return p;
@@ -217,24 +279,33 @@ namespace StructExample
             string _skeyTag = key + _classKeyTag;
 
             Point p;
-            int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sX).AsBigInteger();
-            int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sY).AsBigInteger();
-            byte[] bs = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sSTA);
-            NeoTrace.Trace("Get(string).bs", bs.Length, bs);
-            if (bs.Length == 0)
+            /*STA*/ byte[] bsta = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sSTA);
+            NeoTrace.Trace("Get(string).bs", bsta.Length, bsta);
+            if (bsta.Length == 0)
             {
                 p = Point.Missing();
             }
-            else
+            else // not MISSING
             {
-                int s = (int)bs.AsBigInteger();
-                byte[] e = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sEXT);
-                p = new Point();
-                p._x = x;
-                p._y = y;
-                p._state = (NeoEntityModel.EntityState)s;
-                p._state = NeoEntityModel.EntityState.GETTED;
-                p._extension = e;
+                /*EXT*/ byte[] bext = Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sEXT);
+                int ista = (int)bsta.AsBigInteger();
+                NeoEntityModel.EntityState sta = (NeoEntityModel.EntityState)ista;
+                if (sta == NeoEntityModel.EntityState.TOMBSTONED)
+                {
+                    p = Point.Tombstone();
+                    p._extension = bext; // TODO: does a Tomestone bury all of its extensions?
+                }
+                else // not MISSING && not TOMBSTONED
+                {
+                    p = new Point();
+                    /*FLD*/ int x = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sX).AsBigInteger();
+                    /*FLD*/ int y = (int)Neo.SmartContract.Framework.Services.Neo.Storage.Get(Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext, _skeyTag + _sY).AsBigInteger();
+                    p._x = x;
+                    p._y = y;
+                    p._state = sta;
+                    p._state = NeoEntityModel.EntityState.GETTED; /* OVERRIDE */
+                    p._extension = bext;
+                }
             }
             Log("Get(string).p", p);
             return p;
