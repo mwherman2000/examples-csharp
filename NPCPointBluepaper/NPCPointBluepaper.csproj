@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{402A8622-A620-4850-BE8B-0790B5956369}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NeoPesistenceClasses</RootNamespace>
+    <AssemblyName>NeoPesistenceClasses</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Neo.SmartContract.Framework, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.SmartContract.Framework.2.5.4\lib\net40\Neo.SmartContract.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NPCdApp.cs" />
+    <Compile Include="Point0Fields.cs" />
+    <Compile Include="Point4Collectible.cs" />
+    <Compile Include="Point4NeoEntityModel.cs" />
+    <Compile Include="Point3NeoEntityModel.cs" />
+    <Compile Include="Point4NeoTrace..cs" />
+    <Compile Include="Point3NeoTrace.cs" />
+    <Compile Include="Point3Deletable.cs" />
+    <Compile Include="Point2Persistible.cs" />
+    <Compile Include="Point1Basic.cs" />
+    <Compile Include="Point2NeoEntityModel.cs" />
+    <Compile Include="Point1NeoEntityModel.cs" />
+    <Compile Include="Point2NeoTrace.cs" />
+    <Compile Include="Point1NeoTrace.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="build.tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Neo.ConvertTask.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="Build.tasks" />
+  <Target Name="AfterBuild">
+    <Message Text="Start NeoContract converter, Source File: $(TargetPath)" Importance="high">
+    </Message>
+    <ConvertTask DataSource="$(TargetPath)" />
+  </Target>
+</Project>

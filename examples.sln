@@ -75,6 +75,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatementsSwitchString", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPCdApp", "NPCdApp\NPCdApp.csproj", "{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPCPointBluepaper", "NPCPointBluepaper\NPCPointBluepaper.csproj", "{402A8622-A620-4850-BE8B-0790B5956369}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +223,10 @@ Global
 		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{402A8622-A620-4850-BE8B-0790B5956369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{402A8622-A620-4850-BE8B-0790B5956369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{402A8622-A620-4850-BE8B-0790B5956369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{402A8622-A620-4850-BE8B-0790B5956369}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
