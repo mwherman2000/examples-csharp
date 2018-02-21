@@ -24,7 +24,8 @@ namespace StructExample
             PUTTED,
             GETTED,
             MISSING,
-            TOMBSTONED
+            TOMBSTONED,
+            NOTAUTHORIZED
         }
 
         public static BigInteger AsBigInteger(this EntityState state)
@@ -368,7 +369,7 @@ namespace StructExample
         private static readonly byte[] _bRightBrace = "}".AsByteArray();
         private static readonly byte[] _bColon = ":".AsByteArray();
         private static readonly byte[] _bEquals = "=".AsByteArray();
-        private static readonly byte[] _SemiColon = ";".AsByteArray();
+        private static readonly byte[] _bSemiColon = ";".AsByteArray();
         private static readonly byte[] _ba = "a".AsByteArray(); // App name
         private static readonly byte[] _bM = "M".AsByteArray(); // App major version
         private static readonly byte[] _bm = "m".AsByteArray(); // App minor version
@@ -388,15 +389,15 @@ namespace StructExample
         {
             LogExt("StorageKey(nsk,i,fb).nsk", nsk);
 
-            byte[] bkey = Helper.Concat(_bLeftBrace, _ba).Concat(_bColon).Concat(_bStringType).Concat(_bEquals).Concat(nsk._app).Concat(_SemiColon);
-            bkey =               Helper.Concat(bkey, _bM).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._major)).AsByteArray()).Concat(_SemiColon);
-            bkey =               Helper.Concat(bkey, _bm).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._minor)).AsByteArray()).Concat(_SemiColon);
-            bkey =               Helper.Concat(bkey, _bb).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._build)).AsByteArray()).Concat(_SemiColon);
+            byte[] bkey = Helper.Concat(_bLeftBrace, _ba).Concat(_bColon).Concat(_bStringType).Concat(_bEquals).Concat(nsk._app).Concat(_bSemiColon);
+            bkey =               Helper.Concat(bkey, _bM).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._major)).AsByteArray()).Concat(_bSemiColon);
+            bkey =               Helper.Concat(bkey, _bm).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._minor)).AsByteArray()).Concat(_bSemiColon);
+            bkey =               Helper.Concat(bkey, _bb).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._build)).AsByteArray()).Concat(_bSemiColon);
             //bkey =             Helper.Concat(bkey, _br).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bEquals).Concat(((BigInteger)(nsk._revision)).AsByteArray()).Concat(_bComma);
-            bkey =               Helper.Concat(bkey, _bu).Concat(_bColon).Concat(_bUserScriptHashType).Concat(_bEquals).Concat(nsk._userScriptHash).Concat(_SemiColon);
-            bkey =               Helper.Concat(bkey, _bc).Concat(_bColon).Concat(_bStringType).Concat(_bEquals).Concat(nsk._className).Concat(_SemiColon);
+            bkey =               Helper.Concat(bkey, _bu).Concat(_bColon).Concat(_bUserScriptHashType).Concat(_bEquals).Concat(nsk._userScriptHash).Concat(_bSemiColon);
+            bkey =               Helper.Concat(bkey, _bc).Concat(_bColon).Concat(_bStringType).Concat(_bEquals).Concat(nsk._className).Concat(_bSemiColon);
 
-            bkey =               Helper.Concat(bkey, _bi).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bColon).Concat(((BigInteger)(index)).AsByteArray()).Concat(_SemiColon);
+            bkey =               Helper.Concat(bkey, _bi).Concat(_bColon).Concat(_bBigIntegerType).Concat(_bColon).Concat(((BigInteger)(index)).AsByteArray()).Concat(_bSemiColon);
             bkey =               Helper.Concat(bkey, _bf).Concat(_bColon).Concat(_bStringType).Concat(_bColon).Concat(fieldName);
 
             bkey =               Helper.Concat(bkey, _bRightBrace);
