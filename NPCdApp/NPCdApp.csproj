@@ -8,8 +8,8 @@
     <ProjectGuid>{2A4B9F7A-AC3A-4732-B3EE-7E9FF731201C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StructExample4Combined</RootNamespace>
-    <AssemblyName>StructExample4Combined</AssemblyName>
+    <RootNamespace>NeoPersistableClass</RootNamespace>
+    <AssemblyName>NeoPersistableClass</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -216,7 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StructExample4Combined.cs" />
+    <Compile Include="NPCdApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nmap.bat">

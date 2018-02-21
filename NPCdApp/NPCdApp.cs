@@ -1,11 +1,68 @@
 ﻿using System;
 using System.Numerics;
 using Neo.SmartContract.Framework;
-//using Neo.SmartContract.Framework.Services.Neo;
+//using Neo.SmartContract.Framework.Services.Neo; // use fully-qualified references to resolve
 using Neo.SmartContract.Framework.Services.System;
 
-namespace StructExample
+namespace NeoPersistableClass
 {
+    /*
+        MIT License
+
+        Copyright (c) 2018 Michael Herman (mwherman@parallelspace.net)
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+     */
+
+    /// <summary>
+    /// NPCdApp - NEO Persistable Class (NPC) framework Version 0.1 Reference Implementation
+    /// 
+    /// Author: Michael Herman
+    ///         @mwherman2000
+    ///         mwherman@parallelspace.net
+    ///         
+    /// The NEO Persistable Class (NPC) framework enables efficient object-oriented 
+    /// smart contract development using C#.NEO, Visual Studio and the NEO Developer Tools 
+    /// to build distributed apps (dApps) on the NEO Blockchain.
+    /// 
+    /// NPC Levels Supported
+    /// ----------------------------------------------------------
+    ///	NPC Level 1 Basic
+    /// NPC Level 2 State-managed
+    /// NPC Level 3 Persistable
+    /// NPC Level 4 Collectable
+    /// NPC Level 5 Extendible(future work)
+    /// NPC Level 6 Authorized(future work)
+    /// ----------------------------------------------------------
+    /// Main() Parameters: string operation, object[]args
+    ///  
+    /// Neo-gui Contract Parameter Type: 0710 (string, array)
+    /// 
+    /// Operation Parameter Values
+    /// ----------------------------------------------------------
+    /// test1 [no args] - Dump miscellaneous variables to the log
+    /// test2 [no args] - NPC Level 1: Create 3 Points and a line. Add two Points. Log the results.
+    /// test3 [no args] - NPC Level 2/3: Create 3 Points and test NPC Level 3 entity persistence. Log the results.
+    /// tets4 [no args] - NPC Level 2/3: Test IsNull(), IsMissing() and IsExtended(). Log the results.
+    /// test5 [no args] - NPC Level 4: Test NeoStorageKeys. Log the results.
+    /// test6 [nIterations] - NPC Level 4: Test NeoStorageKeys. Log the results.
+    /// 
+    /// </summary>
+
     public class NeoTrace
     {
         public static void Trace(params object[] args)
@@ -813,7 +870,7 @@ namespace StructExample
         }
     }
 
-    public class StructExample3Combined : SmartContract
+    public class NPCdApp : SmartContract
     {
         // WIF from the NEO privatenet Python environment
         public const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
@@ -1026,8 +1083,13 @@ namespace StructExample
         public static string test6(object[] args)
         {
             string msg = "success";
-            int maxIterations = (int)((byte[])args[0]).AsBigInteger();
+            int maxIterations = 10;
+            if (args.Length > 0)
+            {
+                maxIterations = (int)((byte[])args[0]).AsBigInteger();
+            }
             if (maxIterations <= 0) maxIterations = 10;
+            if (maxIterations > 20) maxIterations = 10;
             NeoTrace.Trace("maxIterations", maxIterations);
 
             byte[] callingUserScriptHash = ExecutionEngine.CallingScriptHash;
