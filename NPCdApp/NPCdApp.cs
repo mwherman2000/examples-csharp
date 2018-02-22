@@ -4,30 +4,39 @@ using Neo.SmartContract.Framework;
 //using Neo.SmartContract.Framework.Services.Neo; // use fully-qualified references to resolve
 using Neo.SmartContract.Framework.Services.System;
 
+// Reference: https://docs.microsoft.com/en-us/dotnet/csharp/codedoc
+// Reference: https://marketplace.visualstudio.com/items?itemName=sergeb.GhostDoc
+// Reference: https://github.com/EWSoftware/SHFB // Sandcastle github
+// Reference: http://ewsoftware.github.io/SHFB/html/b772e00e-1705-4062-adb6-774826ce6700.htm // Sandcastle installation instructions
+// Reference: https://github.com/EWSoftware/SHFB/releases // Sandcastle installation
+// Reference: https://msdn.microsoft.com/en-us/library/ms669985.aspx // HTML Workshop
+// Reference: https://marketplace.visualstudio.com/items?itemName=k--kato.docomment // XML Commentor add-on
+// Reference: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/doc-compiler-option // project.xml gen flag
+
+/*
+     MIT License
+
+     Copyright (c) 2018 Michael Herman (mwherman@parallelspace.net)
+
+     Permission is hereby granted, free of charge, to any person obtaining a copy
+     of this software and associated documentation files (the "Software"), to deal
+     in the Software without restriction, including without limitation the rights
+     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     copies of the Software, and to permit persons to whom the Software is
+     furnished to do so, subject to the following conditions:
+     The above copyright notice and this permission notice shall be included in all
+     copies or substantial portions of the Software.
+     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+     SOFTWARE.
+  */
+
 namespace NeoPersistableClass
 {
-    /*
-        MIT License
-
-        Copyright (c) 2018 Michael Herman (mwherman@parallelspace.net)
-        
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
-        The above copyright notice and this permission notice shall be included in all
-        copies or substantial portions of the Software.
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
-     */
-
     /// <summary>
     /// NPCdApp - NEO Persistable Class (NPC) Framework Version 0.1 Reference Implementation
     /// 
@@ -61,75 +70,29 @@ namespace NeoPersistableClass
     /// tets4   [no args]     - NPC Level 2/3 test cases: Test IsNull(), IsMissing() and IsExtended(). Log the results.
     /// test5   [no args]     - NPC Level 4 test cases: Test NeoStorageKeys. Log the results.
     /// test6   [nIterations] - NPC Level 4 test cases: Test NeoStorageKeys. Log the results.
-    /// 
     /// </summary>
-    /// 
-
-    /*
-     * NCPdApp::Main 
-     * This is the main entry point for this dApp smart contract.
-     */
 
     /// <summary>
     /// NCPdApp class
     /// Contains the Main() entry point for this dApp smart contract
     /// as well as one function for each test case (in addition to some helper methods)
-    /// <list type="bullet">
-    /// <item>
-    /// <term>Main</term>
-    /// <description>Main entry point</description>
-    /// </item>
-    /// <item>
-    /// <term>test1</term>
-    /// <description>Dump miscellaneous variables to the log</description>
-    /// </item>
-    /// <item>
-    /// <term>test2</term>
-    /// <description>NPC Level 1 test case: Create 3 Points and a line. Add two Points. Log the results.</description>
-    /// </item>
-    /// <item>
-    /// <term>test3</term>
-    /// <description>NPC Level 1 test cases: Create 3 Points and a line. Add two Points. Log the results.</description>
-    /// </item>
-    /// <item>
-    /// <term>test4</term>
-    /// <description>NPC Level 2/3 test cases: Test IsNull(), IsMissing() and IsExtended(). Log the results.</description>
-    /// </item>
-    /// <item>
-    /// <term>test5</term>
-    /// <description>NPC Level 4 test cases: Test NeoStorageKeys. Log the results.</description>
-    /// </item>
-    /// <item>
-    /// <term>test6</term>
-    /// <description>NPC Level 4 test cases: Test NeoStorageKeys. Log the results. Number is iterations is taken from <c>args[0]</c>.</description>
-    /// </item>
-    /// <item>
-    /// <term>Add</term>
-    /// <description>Helper function that adds two Points arithmetically.</c></description>
-    /// </item>
-    /// <item>
-    /// <term>GetInvokingUserScriptHash</term>
-    /// <description>Helper function that returns the <c>userScriptHash</c> from <c>Transaction.GetOutputs()</c></description>
-    /// </item>
-    /// </list> 
-    ///</summary>
+    /// </summary>
+    /// <seealso cref="Neo.SmartContract.Framework.SmartContract" />
     public class NPCdApp : SmartContract
     {
         // Test data: WIF from the NEO privatenet Python environment
-        public const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
-        public const string WIF2AccountAddress = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
-        public const string WIF2AccountPublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
-        public const string WIF2AccountPrivateKeyHex = "1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb";
-        public static readonly byte[] WIF2AccountAddressScriptHash = WIF2AccountAddress.ToScriptHash();
+        private const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
+        private const string WIF2AccountAddress = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
+        private const string WIF2AccountPublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
+        private const string WIF2AccountPrivateKeyHex = "1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb";
+        private static readonly byte[] WIF2AccountAddressScriptHash = WIF2AccountAddress.ToScriptHash();
 
-        private static Point Add(Point a, Point b)
-
-        {
-            Point p = Point.New();
-            Point.Set(p, Point.GetX(a) + Point.GetX(b), Point.GetY(a) + Point.GetY(b));
-            return p;
-        }
-
+        /// <summary>
+        /// Main entry point for the NPCaPP dApp
+        /// </summary>
+        /// <param name="operation">operation</param>
+        /// <param name="args">arguments</param>
+        /// <returns>object</returns>
         public static object Main(string operation, params object[] args)
         {
             string msg = "success";
@@ -182,6 +145,11 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// Dump miscellaneous variables to the log
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>string</returns>
         public static string test1(object[] args)
         {
             string msg = "success";
@@ -205,6 +173,11 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// NPC Level 1 test case: Create 3 Points and a line. Add two Points. Log the results
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>string</returns>
         public static string test2(object[] args)
         {
             string msg = "success";
@@ -242,6 +215,11 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// NPC Level 1 test cases: Create 3 Points and a line. Add two Points. Log the results
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>string</returns>
         public static string test3(object[] args)
         {
             string msg = "success";
@@ -281,6 +259,11 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// NPC Level 2/3 test cases: Test IsNull(), IsMissing() and IsExtended(). Log the results
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>string</returns>
         public static string test4(object[] args)
         {
             string msg = "success";
@@ -302,6 +285,11 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// NPC Level 4 test cases: Test NeoStorageKeys. Log the results
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>string</returns>
         public static string test5(object[] args)
         {
             string msg = "success";
@@ -335,6 +323,11 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// NPC Level 4 test cases: Test NeoStorageKeys. Log the results. Number is iterations is taken from <c>args[0]</c>
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>string</returns>
         public static string test6(object[] args)
         {
             string msg = "success";
@@ -392,6 +385,24 @@ namespace NeoPersistableClass
             return msg;
         }
 
+        /// <summary>
+        /// Add two points arithmetically (helper function)
+        /// </summary>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        /// <returns>Point</returns>
+        private static Point Add(Point a, Point b)
+
+        {
+            Point p = Point.New();
+            Point.Set(p, Point.GetX(a) + Point.GetX(b), Point.GetY(a) + Point.GetY(b));
+            return p;
+        }
+
+        /// <summary>
+        /// Gets the invoking userScriptHash (helper function)
+        /// </summary>
+        /// <returns>userScriptHash</returns>
         private static byte[] GetInvokingUserScriptHash()
         {
             byte[] userScriptHash = NeoEntityModel.NullScriptHash;
@@ -407,28 +418,74 @@ namespace NeoPersistableClass
         }
     }
 
-    public class NeoTrace
+    /// <summary>
+    /// Neotrace class
+    /// Wrapper for fully-qualified method <c>Neo.SmartContract.Framework.Services.Neo.Runtime.Notify(args)</c>
+    /// </summary>
+     public class NeoTrace
     {
+        /// <summary>
+        /// Traces the specified arguments.
+        /// </summary>
+        /// <param name="args">arguments</param>
+        /// <returns>void</returns>
         public static void Trace(params object[] args)
         {
             Neo.SmartContract.Framework.Services.Neo.Runtime.Notify(args);
         }
     }
 
+    /// <summary>
+    /// NeoEntityModel class
+    /// Utility class for EntityState enum (NPC Level 1-6) as well as helper functions and extensions
+    /// like <c>AsBigInteger</c> and <c>BytesToEntityState</c>
+    /// </summary>
     public static class NeoEntityModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public enum EntityState
         {
+            /// <summary>
+            /// Null entity state
+            /// </summary>
             NULL,
+            /// <summary>
+            /// Initialized entity state
+            /// </summary>
             INIT,
+            /// <summary>
+            /// Set entity state
+            /// </summary>
             SET,
+            /// <summary>
+            /// Putted entity state
+            /// </summary>
             PUTTED,
+            /// <summary>
+            /// Getted entity state
+            /// </summary>
             GETTED,
+            /// <summary>
+            /// Missing entity state
+            /// </summary>
             MISSING,
+            /// <summary>
+            /// Tombstoned entity state
+            /// </summary>
             TOMBSTONED,
-            NOTAUTHORIZED /* Future */
+            /// <summary>
+            /// Notauthorized entity state (Future work)
+            /// </summary>
+            NOTAUTHORIZED /* Future work */
         }
 
+        /// <summary>
+        /// Convert EntityState state to BigInteger
+        /// </summary>
+        /// <param name="state">state</param>
+        /// <returns>BigInteger</returns>
         public static BigInteger AsBigInteger(this EntityState state)
         {
             int istate = (int)state;
@@ -436,6 +493,11 @@ namespace NeoPersistableClass
             return bis;
         }
 
+        /// <summary>
+        /// Convert state byte[] to EntityState state
+        /// </summary>
+        /// <param name="bsta">bsta</param>
+        /// <returns>EntityState</returns>
         public static EntityState BytesToEntityState(byte[] bsta)
         {
             int ista = (int)bsta.AsBigInteger();
@@ -443,39 +505,153 @@ namespace NeoPersistableClass
             return sta;
         }
 
+        /// <summary>
+        /// Null Script Hash
+        /// </summary>
         public static readonly byte[] NullScriptHash = "".ToScriptHash();
+        /// <summary>
+        /// Null Byte Array
+        /// </summary>
         public static readonly byte[] NullByteArray = "".AsByteArray();
     }
 
+    /// <summary>
+    /// NeoVersionedAppUser class
+    /// Class used to support the efficient creation and management of <c>NeoStorageKeys</c>
+    /// </summary>
     public class NeoVersionedAppUser
     {
+        /// <summary>
+        /// Application name
+        /// </summary>
         private byte[] _app;
+        /// <summary>
+        /// Major version number of the application
+        /// </summary>
         private int _major;
+        /// <summary>
+        /// Minor version number of the application
+        /// </summary>
         private int _minor;
+        /// <summary>
+        /// Build number of the application
+        /// </summary>
         private int _build;
         //private int _revision;
-        private byte[] _userScriptHash; 
+        /// <summary>
+        /// User Script Hash
+        /// </summary>
+        private byte[] _userScriptHash;
+        /// <summary>
+        /// Entity state
+        /// </summary>
         private NeoEntityModel.EntityState _state;
 
+        /// <summary>
+        /// Sets the name of the application.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetAppName(NeoVersionedAppUser vau, byte[] value) { vau._app = value; vau._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the application name as byte array.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>string</returns>
         public static byte[] GetAppNameAsByteArray(NeoVersionedAppUser vau) { return vau._app; }
+        /// <summary>
+        /// Sets the name of the application.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetAppName(NeoVersionedAppUser vau, string value) { vau._app = value.AsByteArray(); vau._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the application name as string.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>string</returns>
         public static string GetAppNameAsString(NeoVersionedAppUser vau) { return vau._app.AsString(); }
+        /// <summary>
+        /// Sets the major version number of the application
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetMajor(NeoVersionedAppUser vau, int value) { vau._major = value; vau._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the major version number of the application
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>int</returns>
         public static int GetMajor(NeoVersionedAppUser vau) { return vau._major; }
+        /// <summary>
+        /// Sets the minor version number of the application
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetMinor(NeoVersionedAppUser vau, int value) { vau._minor = value; vau._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the minor version number of the application
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>int</returns>
         public static int GetMinor(NeoVersionedAppUser vau) { return vau._minor; }
+        /// <summary>
+        /// Sets the build number
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetBuild(NeoVersionedAppUser vau, int value) { vau._build = value; vau._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the build number
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>int</returns>
         public static int GetBuild(NeoVersionedAppUser vau) { return vau._build; }
         //public static void SetRevision(NeoVersionedAppUser vau, int value) { vau._revision = value; vau._state = NeoEntityModel.EntityState.SET; }
         //public static int GetRevision(NeoVersionedAppUser vau) { return vau._revision; }
+        /// <summary>
+        /// Sets the userScriptHash.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetUserScriptHash(NeoVersionedAppUser vau, byte[] value) { vau._userScriptHash = value; vau._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the userScriptHash.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>userScriptHash</returns>
         public static byte[] GetUserScriptHash(NeoVersionedAppUser vau) { return vau._userScriptHash; }
+        /// <summary>
+        /// Sets the specified versioned app user.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <returns>void</returns>
         public static void Set(NeoVersionedAppUser vau, byte[] app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash)
         {
             vau._app = app; vau._major = major; vau._minor = minor; vau._build = build; /*vau._revision = revision;*/
             vau._userScriptHash = userScriptHash; vau._state = NeoEntityModel.EntityState.SET;
         }
+        /// <summary>
+        /// Sets the specified version app user.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <returns>void</returns>
         public static void Set(NeoVersionedAppUser vau, string app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash)
         {
             vau._app = app.AsByteArray(); vau._major = major; vau._minor = minor; vau._build = build; /*vau._revision = revision;*/
@@ -483,10 +659,19 @@ namespace NeoPersistableClass
         }
 
         // Factory methods
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="NeoVersionedAppUser"/> class from being created.
+        /// </summary>
         private NeoVersionedAppUser()
         {
         }
 
+        /// <summary>
+        /// Initializes the specified vau.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>NeoVersionedAppUser</returns>
         private static NeoVersionedAppUser _Initialize(NeoVersionedAppUser vau)
         {
             vau._app = NeoEntityModel.NullByteArray;
@@ -499,6 +684,10 @@ namespace NeoPersistableClass
             return vau;
         }
 
+        /// <summary>
+        /// News this instance.
+        /// </summary>
+        /// <returns>NeoVersionedAppUser</returns>
         public static NeoVersionedAppUser New()
         {
             NeoVersionedAppUser vau = new NeoVersionedAppUser();
@@ -507,6 +696,15 @@ namespace NeoPersistableClass
             return vau;
         }
 
+        /// <summary>
+        /// News the specified application.
+        /// </summary>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <returns>NeoVersionedAppUser</returns>
         public static NeoVersionedAppUser New(byte[] app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash)
         {
             NeoVersionedAppUser vau = new NeoVersionedAppUser();
@@ -521,6 +719,15 @@ namespace NeoPersistableClass
             return vau;
         }
 
+        /// <summary>
+        /// News the specified application.
+        /// </summary>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <returns>NeoVersionedAppUser</returns>
         public static NeoVersionedAppUser New(string app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash)
         {
             NeoVersionedAppUser vau = new NeoVersionedAppUser();
@@ -535,6 +742,10 @@ namespace NeoPersistableClass
             return vau;
         }
 
+        /// <summary>
+        /// Create a new entity representing a Null entity
+        /// </summary>
+        /// <returns>NeoVersionedAppUser</returns>
         public static NeoVersionedAppUser Null()
         {
             NeoVersionedAppUser vau = new NeoVersionedAppUser();
@@ -544,24 +755,49 @@ namespace NeoPersistableClass
         }
 
         // EntityState wrapper methods
+
+        /// <summary>
+        /// Test whether the specified NeoVersionedAppUser is Null.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <returns>
+        ///   <c>true</c> if the specified vau is null; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsNull(NeoVersionedAppUser vau)
         {
             return (vau._state == NeoEntityModel.EntityState.NULL);
         }
 
         // Log/trace methods
+        /// <summary>
+        /// Logs the specified label.
+        /// </summary>
+        /// <param name="label">label</param>
+        /// <param name="vau">vau</param>
+        /// <returns>void</returns>
         public static void Log(string label, NeoVersionedAppUser vau)
         {
             NeoTrace.Trace(label, vau._app, vau._major, vau._minor, vau._build, /*vau._revision,*/ vau._userScriptHash);
         }
 
+        /// <summary>
+        /// Logs the ext.
+        /// </summary>
+        /// <param name="label">label</param>
+        /// <param name="vau">vau</param>
+        /// <returns>void</returns>
         public static void LogExt(string label, NeoVersionedAppUser vau)
         {
             NeoTrace.Trace(label, vau._app, vau._major, vau._minor, vau._build, /*vau._revision,*/ vau._userScriptHash, vau._state); // long values, state, extension last
         }
     }
 
-    public class NeoStorageKey
+    /// <summary>
+    /// NeoStorageKey class
+    /// Used to manage NeoStorageKeys (NSKs) and the serialization of NSKs into
+    /// NeoStorageKey Object Notation (NSKON)
+    /// </summary>
+     public class NeoStorageKey
     {
         // NSKON = NeoStorageKey Object Notation
         //string key = "{" + String.Format("a:T={0},M:T={1},M:T={2},b:T={3}r:T={4},u:T={5},c:T={6},i:T={7},f:T={8}",
@@ -574,51 +810,224 @@ namespace NeoPersistableClass
         // Related specifications: http://bsonspec.org/faq.html
         //
 
+        /// <summary>
+        /// Application name
+        /// </summary>
         private byte[] _app;
+        /// <summary>
+        /// Major version of the application
+        /// </summary>
         private int _major;
+        /// <summary>
+        /// Minor version of the application
+        /// </summary>
         private int _minor;
+        /// <summary>
+        /// Build number of the application
+        /// </summary>
         private int _build;
         //private int _revision;
+        /// <summary>
+        /// User script hash
+        /// </summary>
         private byte[] _userScriptHash;
+        /// <summary>
+        /// Class name
+        /// </summary>
         private byte[] _className;
+        /// <summary>
+        /// Index into a collection
+        /// </summary>
         private int _index;
+        /// <summary>
+        /// Entity field name
+        /// </summary>
         private string _fieldName;
+        /// <summary>
+        /// Entity state
+        /// </summary>
         private NeoEntityModel.EntityState _state;
 
+        /// <summary>
+        /// Sets the name of the application.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetAppName(NeoStorageKey nsk, byte[] value) { nsk._app = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the application name as byte array.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>app</returns>
         public static byte[] GetAppNameAsByteArray(NeoStorageKey nsk) { return nsk._app; }
+        /// <summary>
+        /// Sets the name of the application.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetAppName(NeoStorageKey nsk, string value) { nsk._app = value.AsByteArray(); nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the application name as string.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>string</returns>
         public static string GetAppNameAsString(NeoStorageKey nsk) { return nsk._app.AsString(); }
+        /// <summary>
+        /// Sets the major version number of an application.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetMajor(NeoStorageKey nsk, int value) { nsk._major = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the major version number of an application.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>int</returns>
         public static int GetMajor(NeoStorageKey nsk) { return nsk._major; }
+        /// <summary>
+        /// Sets the minor version number of an application
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetMinor(NeoStorageKey nsk, int value) { nsk._minor = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the minor version number of an application.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>int</returns>
         public static int GetMinor(NeoStorageKey nsk) { return nsk._minor; }
+        /// <summary>
+        /// Sets the build number of an application
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetBuild(NeoStorageKey nsk, int value) { nsk._build = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the build number of an application
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>int</returns>
         public static int GetBuild(NeoStorageKey nsk) { return nsk._build; }
         //public static void SetRevision(NeoStorageKey nsk, int value) { nsk._revision = value; nsk._state = NeoEntityModel.EntityState.SET; }
         //public static int GetRevision(NeoStorageKey nsk) { return nsk._revision; }
+        /// <summary>
+        /// Sets the userScriptHash of a NEO Storage Key.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetUserScriptHash(NeoStorageKey nsk, byte[] value) { nsk._userScriptHash = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the userScriptHash of a NEO Storage Key.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>userScriptHash</returns>
         public static byte[] GetUserScriptHash(NeoStorageKey nsk) { return nsk._userScriptHash; }
+        /// <summary>
+        /// Sets the class name of a NEO Storage Key
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetClassName(NeoStorageKey nsk, byte[] value) { nsk._className = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the class name of a NEO Storage Key as byte array.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>className</returns>
         public static byte[] GetClassNameAsByteArray(NeoStorageKey nsk) { return nsk._className; }
+        /// <summary>
+        /// Sets the class name of the NEO Storage Key
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetClassName(NeoStorageKey nsk, string value) { nsk._className = value.AsByteArray(); nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the class name of a NEO Storage Key as string.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>string</returns>
         public static string GetClassNameAsString(NeoStorageKey nsk) { return nsk._className.AsString(); }
+        /// <summary>
+        /// Sets the index of a NEO Storage Key
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetIndex(NeoStorageKey nsk, int value) { nsk._index = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the index of a NEO Storage Key
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>int</returns>
         public static int GetIndex(NeoStorageKey nsk) { return nsk._index; }
+        /// <summary>
+        /// Sets the class field name of the NEO Storage Key.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetFieldName(NeoStorageKey nsk, string value) { nsk._fieldName = value; nsk._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets the field name of the NEO Storage Key.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>string</returns>
         public static string GetFieldName(NeoStorageKey nsk) { return nsk._fieldName; }
+        /// <summary>
+        /// Sets the specified NEO Storage Key field values.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <param name="className">class name</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>void</returns>
         public static void Set(NeoStorageKey nsk, byte[] app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash, byte[] className, int index, string fieldName)
         {
             nsk._app = app; nsk._major = major; nsk._minor = minor; nsk._build = build; /*nsk._revision = revision*/;
             nsk._userScriptHash = userScriptHash; nsk._className = className; nsk._index = index; nsk._fieldName = fieldName;
             nsk._state = NeoEntityModel.EntityState.SET;
         }
+        /// <summary>
+        /// Sets the specified NEO Storage Key field values.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <param name="className">class name</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>void</returns>
         public static void Set(NeoStorageKey nsk, string app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash, string className, int index, string fieldName)
         {
             nsk._app = app.AsByteArray(); nsk._major = major; nsk._minor = minor; nsk._build = build; /*nsk._revision = revision*/;
             nsk._userScriptHash = userScriptHash; nsk._className = className.AsByteArray(); nsk._index = index; nsk._fieldName = fieldName;
             nsk._state = NeoEntityModel.EntityState.SET;
         }
+        /// <summary>
+        /// Sets the specified NEO Storage Key field values.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="vau">vau</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <param name="className">class name</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>void</returns>
         public static void Set(NeoStorageKey nsk, NeoVersionedAppUser vau, byte[] userScriptHash, byte[] className, int index, string fieldName)
         {
             nsk._major = NeoVersionedAppUser.GetMajor(vau); nsk._minor = NeoVersionedAppUser.GetMinor(vau); nsk._build = NeoVersionedAppUser.GetBuild(vau); /*nsk._revision = NeoVersionedAppUser.GetRevision(vau);*/
@@ -626,6 +1035,16 @@ namespace NeoPersistableClass
             nsk._className = className; nsk._index = index; nsk._fieldName = fieldName;
             nsk._state = NeoEntityModel.EntityState.SET;
         }
+        /// <summary>
+        /// Sets the specified NEO Storage Key field values.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="vau">vau</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <param name="className">class name</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>void</returns>
         public static void Set(NeoStorageKey nsk, NeoVersionedAppUser vau, byte[] userScriptHash, string className, int index, string fieldName)
         {
             nsk._major = NeoVersionedAppUser.GetMajor(vau); nsk._minor = NeoVersionedAppUser.GetMinor(vau); nsk._build = NeoVersionedAppUser.GetBuild(vau); /*nsk._revision = NeoVersionedAppUser.GetRevision(vau);*/
@@ -635,10 +1054,18 @@ namespace NeoPersistableClass
         }
 
         // Factory methods
+        /// <summary>
+        /// Prevents a default instance of the <see cref="NeoStorageKey"/> class from being created.
+        /// </summary>
         private NeoStorageKey()
         {
         }
 
+        /// <summary>
+        /// Initializes the specified NSK.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>NeoStorageKey</returns>
         private static NeoStorageKey _Initialize(NeoStorageKey nsk)
         {
             nsk._app = NeoEntityModel.NullByteArray;
@@ -655,6 +1082,10 @@ namespace NeoPersistableClass
             return nsk;
         }
 
+        /// <summary>
+        /// News this instance.
+        /// </summary>
+        /// <returns>NeoStorageKey</returns>
         public static NeoStorageKey New()
         {
             NeoStorageKey nsk = new NeoStorageKey();
@@ -663,6 +1094,18 @@ namespace NeoPersistableClass
             return nsk;
         }
 
+        /// <summary>
+        /// News the specified application.
+        /// </summary>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <param name="className">class name</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>NeoStorageKey</returns>
         public static NeoStorageKey New(byte[] app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash, byte[] className, int index, string fieldName)
         {
             NeoStorageKey nsk = new NeoStorageKey();
@@ -680,6 +1123,18 @@ namespace NeoPersistableClass
             return nsk;
         }
 
+        /// <summary>
+        /// News the specified application.
+        /// </summary>
+        /// <param name="app">application</param>
+        /// <param name="major">major</param>
+        /// <param name="minor">minor</param>
+        /// <param name="build">build</param>
+        /// <param name="userScriptHash">userScriptHash</param>
+        /// <param name="className">class name</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>NeoStorageKey</returns>
         public static NeoStorageKey New(string app, int major, int minor, int build, /*int revision,*/ byte[] userScriptHash, string className, int index, string fieldName)
         {
             NeoStorageKey nsk = new NeoStorageKey();
@@ -697,6 +1152,12 @@ namespace NeoPersistableClass
             return nsk;
         }
 
+        /// <summary>
+        /// News the specified vau.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="className">class name</param>
+        /// <returns>NeoStorageKey</returns>
         public static NeoStorageKey New(NeoVersionedAppUser vau, byte[] className)
         {
             if (NeoVersionedAppUser.IsNull(vau))
@@ -719,6 +1180,12 @@ namespace NeoPersistableClass
             return nsk;
         }
 
+        /// <summary>
+        /// News the specified vau.
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="className">class name</param>
+        /// <returns>NeoStorageKey</returns>
         public static NeoStorageKey New(NeoVersionedAppUser vau, string className)
         {
             if (NeoVersionedAppUser.IsNull(vau))
@@ -741,6 +1208,10 @@ namespace NeoPersistableClass
             return nsk;
         }
 
+        /// <summary>
+        /// Create a new entity representing a Null entity
+        /// </summary>
+        /// <returns>NeoStorageKey</returns>
         public static NeoStorageKey Null()
         {
             NeoStorageKey nsk = new NeoStorageKey();
@@ -750,17 +1221,38 @@ namespace NeoPersistableClass
         }
 
         // EntityState wrapper methods
+
+        /// <summary>
+        /// Test whether the specified NeoStorageKey is Null.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <returns>
+        ///   <c>true</c> if the specified NSK is null; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsNull(NeoStorageKey nsk)
         {
             return (nsk._state == NeoEntityModel.EntityState.NULL);
         }
 
         // Log/trace methods
+
+        /// <summary>
+        /// Logs the specified label.
+        /// </summary>
+        /// <param name="label">label</param>
+        /// <param name="nsk">NSK</param>
+        /// <returns>void</returns>
         public static void Log(string label, NeoStorageKey nsk)
         {
             NeoTrace.Trace(label, nsk._app, nsk._major, nsk._minor, nsk._build, /*nsk._revision,*/ nsk._className, nsk._index, nsk._fieldName, nsk._userScriptHash);
         }
 
+        /// <summary>
+        /// Logs the ext.
+        /// </summary>
+        /// <param name="label">label</param>
+        /// <param name="nsk">NSK</param>
+        /// <returns>void</returns>
         public static void LogExt(string label, NeoStorageKey nsk)
         {
             NeoTrace.Trace(label, nsk._app, nsk._major, nsk._minor, nsk._build, /*nsk._revision,*/ nsk._className, nsk._index, nsk._fieldName, nsk._userScriptHash, nsk._state); // long values, state, extension last
@@ -785,7 +1277,13 @@ namespace NeoPersistableClass
         private static readonly byte[] _bBigIntegerType = { (byte)Neo.SmartContract.ContractParameterType.Integer };
         private static readonly byte[] _bUserScriptHashType = { (byte)Neo.SmartContract.ContractParameterType.ByteArray };
 
-        //* Core methods
+        /// <summary>
+        /// Compute a NEO Storage Key.
+        /// </summary>
+        /// <param name="nsk">NSK</param>
+        /// <param name="index">index</param>
+        /// <param name="fieldName">field name</param>
+        /// <returns>bNeoStorageKey</returns>
         public static byte[] StorageKey(NeoStorageKey nsk, int index, byte[]fieldName)
         {
             LogExt("StorageKey(nsk,i,fb).nsk", nsk);
@@ -807,20 +1305,82 @@ namespace NeoPersistableClass
         }
     }
 
+    /// <summary>
+    /// Point class
+    /// Reference implementation of a NPC class consisting of a pair of x and y coorinates
+    /// </summary>
+    /// <seealso cref="NeoPersistableClass.NeoTrace" />
     public class Point : NeoTrace
     {
+        /// <summary>
+        /// Core fields (NPC Level all)
+        /// </summary>
+
+        /// <summary>
+        /// X coordinate
+        /// </summary>
         private BigInteger _x;
+        /// <summary>
+        /// Y coordinate
+        /// </summary>
         private BigInteger _y;
+        /// <summary>
+        /// Entity state
+        /// </summary>
         private NeoEntityModel.EntityState _state;
+        /// <summary>
+        /// Extension script hash
+        /// </summary>
         private byte[] _extension;
 
-        // Accessors
+        // Accessors (NPC Level all)
+
+        /// <summary>
+        /// Gets X coordinate
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetX(Point p, BigInteger value) { p._x = value; p._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets X coordinate
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>BigInteger</returns>
         public static BigInteger GetX(Point p) { return p._x; }
+        /// <summary>
+        /// Sets Y coordinate
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetY(Point p, BigInteger value) { p._y = value; p._state = NeoEntityModel.EntityState.SET; }
+        /// <summary>
+        /// Gets Y coordinate
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>BigInteger</returns>
         public static BigInteger GetY(Point p) { return p._y; }
+        /// <summary>
+        /// Sets Extension script hash
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="value">value</param>
+        /// <returns>void</returns>
         public static void SetExtension(Point p, byte[] value) { p._extension = value; }
+        /// <summary>
+        /// Gets Extension script hash.
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>extension</returns>
         public static byte[] GetExtension(Point p) { return p._extension; }
+        /// <summary>
+        /// Sets the specified Point field values
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="xvalue">xvalue</param>
+        /// <param name="yvalue">yvalue</param>
+        /// <returns>void</returns>
         public static void Set(Point p, BigInteger xvalue, BigInteger yvalue) { p._x = xvalue; p._y = yvalue; p._state = NeoEntityModel.EntityState.SET; }
 
         //public int X
@@ -837,7 +1397,8 @@ namespace NeoPersistableClass
         //public int X { get => _x; set => _x = value; }
         //public int Y { get => _y; set => _y = value; }
 
-        // Class name and property names
+        // Metadata fields (NPC Level all)        
+
         private const string _className = "Point";
         private const string _sX = "X";
         private const string _sY = "Y";
@@ -848,15 +1409,25 @@ namespace NeoPersistableClass
         private static readonly byte[] _bSTA = Helper.AsByteArray(_sSTA);
         private static readonly byte[] _bEXT = Helper.AsByteArray(_sEXT);
 
-        // Internal fields
+        // System fields (NPC Level all)
+        
         private const string _classKeyTag = "/#" + _className + ".";
         private static readonly byte[] _bclassKeyTag = Helper.AsByteArray(_classKeyTag);
 
-        // Factory methods
+        // Factory methods (NPC Level all)
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="Point"/> class from being created.
+        /// </summary>
         private Point()
         {
         }
 
+        /// <summary>
+        /// Initializes the specified Point field values
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>Point</returns>
         private static Point _Initialize(Point p)
         {
             p._x = 0;
@@ -867,6 +1438,12 @@ namespace NeoPersistableClass
             return p;
         }
 
+        /// <summary>
+        /// Create a new entity initialized with "zero" values
+        /// </summary>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point New()
         {
             Point p = new Point();
@@ -875,6 +1452,14 @@ namespace NeoPersistableClass
             return p;
         }
 
+        /// <summary>
+        /// Create a new entity initialized with (x,y) values
+        /// </summary>
+        /// <param name="x">x</param>
+        /// <param name="y">y</param>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point New(int x, int y)
         {
             Point p = new Point();
@@ -886,6 +1471,12 @@ namespace NeoPersistableClass
             return p;
         }
 
+        /// <summary>
+        /// Create a new entity representing a Null entity
+        /// </summary>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point Null()
         {
             Point p = new Point();
@@ -894,29 +1485,64 @@ namespace NeoPersistableClass
             return p;
         }
 
-        // EntityState wrapper methods
+        // EntityState wrapper methods (NPC Level all)
+
+        /// <summary>
+        /// Test whether the specified entity is Null.
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public static bool IsNull(Point p)
         {
             return (p._state == NeoEntityModel.EntityState.NULL);
         }
 
-        // Log/trace methods
+        // Logging methods (NPC Level all)
+
+        /// <summary>
+        /// Log the entity's core fields
+        /// </summary>
+        /// <param name="label">label</param>
+        /// <param name="p">p</param>
+        /// <returns>void</returns>
         public static void Log(string label, Point p)
         {
             NeoTrace.Trace(label, p._x, p._y);
         }
 
+        /// <summary>
+        /// Log the entity's core and system fields
+        /// </summary>
+        /// <param name="label">label</param>
+        /// <param name="p">p</param>
+        /// <returns>void</returns>
         public static void LogExt(string label, Point p)
         {
             NeoTrace.Trace(label, p._x, p._y, p._state, p._extension); // long values, state, extension last
         }
 
-        // Persistable methods
+        // Persistable methods (NPC Level 2)
+
+        /// <summary>
+        /// Test whether the specified entity is Missing.
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public static bool IsMissing(Point p)
         {
             return (p._state == NeoEntityModel.EntityState.MISSING);
         }
 
+        /// <summary>
+        /// Create a new entity representing a Missing entity
+        /// </summary>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point Missing()
         {
             Point p = new Point();
@@ -928,12 +1554,18 @@ namespace NeoPersistableClass
             return p;
         }
 
-        public static bool Put(Point p, byte[] key)
+        /// <summary>
+        /// Put an entity into Storage based on a byte[] valued key (NPC Level 2)
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="bkey">bkey</param>
+        /// <returns>bool</returns>
+        public static bool Put(Point p, byte[] bkey)
         {
-            if (key.Length == 0) return false;
+            if (bkey.Length == 0) return false;
 
             Neo.SmartContract.Framework.Services.Neo.StorageContext ctx = Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext;
-            byte[] _bkeyTag = Helper.Concat(key, _bclassKeyTag);
+            byte[] _bkeyTag = Helper.Concat(bkey, _bclassKeyTag);
 
             p._state = NeoEntityModel.EntityState.PUTTED;
             /*STA*/ Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, Helper.Concat(_bkeyTag, _bSTA), p._state.AsBigInteger());
@@ -944,13 +1576,19 @@ namespace NeoPersistableClass
             return true;
         }
 
-        public static bool Put(Point p, string key)
+        /// <summary>
+        /// Put an entity into Storage based on a string valued key (NPC Level 2)
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="skey">skey</param>
+        /// <returns>bool</returns>
+        public static bool Put(Point p, string skey)
         {
-            if (key.Length == 0) return false;
+            if (skey.Length == 0) return false;
             LogExt("Put(ks).p", p);
 
             Neo.SmartContract.Framework.Services.Neo.StorageContext ctx = Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext;
-            string _skeyTag = key + _classKeyTag;
+            string _skeyTag = skey + _classKeyTag;
             Trace("Put(ks)._skeyTag", _skeyTag);
 
             p._state = NeoEntityModel.EntityState.PUTTED;
@@ -964,12 +1602,17 @@ namespace NeoPersistableClass
             return true;
         }
 
-        public static Point Get(byte[] key)
+        /// <summary>
+        /// Get an entity from Storage based on a byte[] valued key (NPC Level 2)
+        /// </summary>
+        /// <param name="bkey">bkey</param>
+        /// <returns>Point</returns>
+        public static Point Get(byte[] bkey)
         {
-            if (key.Length == 0) return Null();
+            if (bkey.Length == 0) return Null();
 
             Neo.SmartContract.Framework.Services.Neo.StorageContext ctx = Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext;
-            byte[] _bkeyTag = Helper.Concat(key, _bclassKeyTag);
+            byte[] _bkeyTag = Helper.Concat(bkey, _bclassKeyTag);
 
             Point p;
             /*STA*/ byte[] bsta = Neo.SmartContract.Framework.Services.Neo.Storage.Get(ctx, Helper.Concat(_bkeyTag, _bSTA));
@@ -1004,12 +1647,17 @@ namespace NeoPersistableClass
             return p;
         }
 
-        public static Point Get(string key)
+        /// <summary>
+        /// Get an entity from Storage based on a string valued key (NPC Level 2)
+        /// </summary>
+        /// <param name="skey">skey</param>
+        /// <returns>Point</returns>
+        public static Point Get(string skey)
         {
-            if (key.Length == 0) return Null();
+            if (skey.Length == 0) return Null();
 
             Neo.SmartContract.Framework.Services.Neo.StorageContext ctx = Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext;
-            string _skeyTag = key + _classKeyTag;
+            string _skeyTag = skey + _classKeyTag;
 
             Point p;
             /*STA*/ byte[] bsta = Neo.SmartContract.Framework.Services.Neo.Storage.Get(ctx, _skeyTag + _sSTA);
@@ -1045,12 +1693,26 @@ namespace NeoPersistableClass
             return p;
         }
 
-        // Deletable methods
+        // Deletable methods (NPC Level 3)
+
+        /// <summary>
+        /// Test whether the specified entity is Buried (Tombstoned)
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public static bool IsBuried(Point p)
         {
             return (p._state == NeoEntityModel.EntityState.TOMBSTONED);
         }
 
+        /// <summary>
+        /// Create a new entity representing a Tombstoned entity (NPC Level 3)
+        /// </summary>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point Tombstone()
         {
             Point p = new Point();
@@ -1062,12 +1724,17 @@ namespace NeoPersistableClass
             return p;
         }
 
-        public static Point Bury(byte[] key)
+        /// <summary>
+        /// Bury an entity in Storage based on a byte[] valued key (NPC Level 3)
+        /// </summary>
+        /// <param name="bkey">bkey</param>
+        /// <returns>Point</returns>
+        public static Point Bury(byte[] bkey)
         {
-            if (key.Length == 0) return Null(); // TODO - create NeoEntityModel.EntityState.BADKEY?
+            if (bkey.Length == 0) return Null(); // TODO - create NeoEntityModel.EntityState.BADKEY?
 
             Neo.SmartContract.Framework.Services.Neo.StorageContext ctx = Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext;
-            byte[] _bkeyTag = Helper.Concat(key, _bclassKeyTag);
+            byte[] _bkeyTag = Helper.Concat(bkey, _bclassKeyTag);
 
             Point p;
             /*STA*/
@@ -1080,7 +1747,7 @@ namespace NeoPersistableClass
             else // not MISSING - bury it
             {
                 p = Point.Tombstone(); // TODO - should Bury() preserve the exist field values or re-initialize them? Preserve is cheaper but not as private
-                                       /*STA*/
+                /*STA*/
                 Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, Helper.Concat(_bkeyTag, _bSTA), p._state.AsBigInteger());
                 /*EXT*/
                 Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, Helper.Concat(_bkeyTag, _bEXT), p._extension);
@@ -1093,12 +1760,17 @@ namespace NeoPersistableClass
             return p; // return Point p to signal if key is Missing or bad key
         }
 
-        public static Point Bury(string key)
+        /// <summary>
+        /// Bury an entity in Storage based on a string valued key (NPC Level 3)
+        /// </summary>
+        /// <param name="skey">skey</param>
+        /// <returns>Point</returns>
+        public static Point Bury(string skey)
         {
-            if (key.Length == 0) return Null(); // TODO - create NeoEntityModel.EntityState.BADKEY?
+            if (skey.Length == 0) return Null(); // TODO - create NeoEntityModel.EntityState.BADKEY?
 
             Neo.SmartContract.Framework.Services.Neo.StorageContext ctx = Neo.SmartContract.Framework.Services.Neo.Storage.CurrentContext;
-            string _skeyTag = key + _classKeyTag;
+            string _skeyTag = skey + _classKeyTag;
 
             Point p;
             /*STA*/
@@ -1111,7 +1783,7 @@ namespace NeoPersistableClass
             else // not MISSING - bury it
             {
                 p = Point.Tombstone(); // TODO - should Bury() preserve the exist field values or re-initialize them? Preserve is cheaper but not as private
-                                       /*STA*/
+                /*STA*/
                 Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, _skeyTag + _sSTA, p._state.AsBigInteger());
                 /*EXT*/
                 Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, _skeyTag + _sEXT, p._extension);
@@ -1124,7 +1796,15 @@ namespace NeoPersistableClass
             return p; // return Point p to signal if key is Missing or bad key
         }
 
-         // Collectible methods
+        /// <summary>
+        /// Collectible methods (NPC Level 4)
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <param name="vau">vau</param>
+        /// <param name="index">index</param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public static bool PutElement(Point p, NeoVersionedAppUser vau, int index)
         {
             if (NeoVersionedAppUser.IsNull(vau)) return false;
@@ -1146,6 +1826,14 @@ namespace NeoPersistableClass
             return true;
         }
 
+        /// <summary>
+        /// Get an element of an array of entities from Storage based on a NeoStorageKey (NPC Level 4)
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="index">index</param>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point GetElement(NeoVersionedAppUser vau, int index)
         {
             if (NeoVersionedAppUser.IsNull(vau)) return Null();
@@ -1191,6 +1879,14 @@ namespace NeoPersistableClass
             return p;
         }
 
+        /// <summary>
+        /// Bury an element of an array of entities in Storage based on a NeoStorageKey (NPC Level 4)
+        /// </summary>
+        /// <param name="vau">vau</param>
+        /// <param name="index">index</param>
+        /// <returns>
+        /// Point
+        /// </returns>
         public static Point BuryElement(NeoVersionedAppUser vau, int index)
         {
             if (NeoVersionedAppUser.IsNull(vau)) // TODO - create NeoEntityModel.EntityState.BADKEY?
@@ -1213,7 +1909,7 @@ namespace NeoPersistableClass
             else // not MISSING - bury it
             {
                 p = Point.Tombstone(); // TODO - should Bury() preserve the exist field values or re-initialize them? Preserve is cheaper but not as private
-                                       /*STA*/
+                /*STA*/
                 Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, bkey = NeoStorageKey.StorageKey(nsk, index, _bSTA), p._state.AsBigInteger());
                 /*EXT*/
                 Neo.SmartContract.Framework.Services.Neo.Storage.Put(ctx, bkey = NeoStorageKey.StorageKey(nsk, index, _bEXT), p._extension);
@@ -1226,7 +1922,15 @@ namespace NeoPersistableClass
             return p;
         }
 
-        // Extendible methods
+        // Extensible methods (NPC Level 5 - Future Work)
+
+        /// <summary>
+        /// Test whether the specified entity has been Extended.
+        /// </summary>
+        /// <param name="p">p</param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public static bool IsExtended(Point p)
         {
             return (p._extension != NeoEntityModel.NullScriptHash);
