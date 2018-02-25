@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace NeoPesistenceClasses0
 {
-    public class Point /* Level 0 */
+    public class Point /* Level 0 - Basic */
     {
         private BigInteger _x;
         private BigInteger _y;
-
-        // Factory methods
-        private Point()
-        {
-        }
     }
 }

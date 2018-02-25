@@ -46,8 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NPCdApp.cs" />
-    <Compile Include="Point0Fields.cs" />
+    <Compile Include="Point0Basic.cs" />
     <Compile Include="Point4Collectible.cs" />
     <Compile Include="Point4NeoEntityModel.cs" />
     <Compile Include="Point3NeoEntityModel.cs" />
@@ -55,7 +54,7 @@
     <Compile Include="Point3NeoTrace.cs" />
     <Compile Include="Point3Deletable.cs" />
     <Compile Include="Point2Persistible.cs" />
-    <Compile Include="Point1Basic.cs" />
+    <Compile Include="Point1Managed.cs" />
     <Compile Include="Point2NeoEntityModel.cs" />
     <Compile Include="Point1NeoEntityModel.cs" />
     <Compile Include="Point2NeoTrace.cs" />

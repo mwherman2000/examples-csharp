@@ -232,11 +232,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="Build.tasks" />
-  <Target Name="AfterBuild">
-    <Message Text="Start NeoContract converter, Source File: $(TargetPath)" Importance="high">
-    </Message>
-    <ConvertTask DataSource="$(TargetPath)" />
-  </Target>
   <PropertyGroup>
     <PostBuildEvent>REM set PATH="D:\repos\neo-debugger-tools\NEO-Compiler\bin\Debug";%25PATH%25
 REM set PATH="D:\repos\neo-debugger-tools-old\NEO-Compiler\bin\Debug";%25PATH%25
