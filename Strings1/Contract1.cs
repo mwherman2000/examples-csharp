@@ -13,17 +13,14 @@ namespace Strings1
 
             //string empty = "";
             //string nullstring = null;
-
             //if (String.IsNullOrWhiteSpace(empty)) message += "String.IsNullOrWhiteSpace(empty) worked. ";
-
             //if (String.IsNullOrEmpty(empty)) message += "String.IsNullOrEmpty(empty) worked. ";
-
             //if (String.IsNullOrEmpty(nullstring)) message += "String.IsNullOrEmpty(nullstring) worked. ";
 
-            string nullstring = null;
-            if (nullstring == null) message += "nullstring == null worked. ";
-            nullstring = "Hello World";
-            message += nullstring;
+            string nullstring2 = null;
+            if (nullstring2 == null) message += "nullstring2 == null worked. ";
+            nullstring2 = "Hello World";
+            message += nullstring2;
             return message;
         }
     }

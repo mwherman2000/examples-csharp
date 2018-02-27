@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{402A8622-A620-4850-BE8B-0790B5956369}</ProjectGuid>
+    <ProjectGuid>{F0186CA4-4071-4959-A145-DED344E98A36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NeoPesistenceClasses</RootNamespace>
-    <AssemblyName>NeoPesistenceClasses</AssemblyName>
+    <RootNamespace>ReturnPoint1</RootNamespace>
+    <AssemblyName>ReturnPoint1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,19 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Point0Basic.cs" />
-    <Compile Include="Point4Collectible.cs" />
-    <Compile Include="Point4NeoEntityModel.cs" />
-    <Compile Include="Point3NeoEntityModel.cs" />
-    <Compile Include="Point4NeoTrace.cs" />
-    <Compile Include="Point3NeoTrace.cs" />
-    <Compile Include="Point3Deletable.cs" />
-    <Compile Include="Point2Persistible.cs" />
-    <Compile Include="Point1Managed.cs" />
-    <Compile Include="Point2NeoEntityModel.cs" />
-    <Compile Include="Point1NeoEntityModel.cs" />
-    <Compile Include="Point2NeoTrace.cs" />
-    <Compile Include="Point1NeoTrace.cs" />
+    <Compile Include="Contract1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,4 +63,9 @@
     </Message>
     <ConvertTask DataSource="$(TargetPath)" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>set PATH="D:\repos\neo-debugger-tools-coz\NEO-Compiler\bin\Debug";%25PATH%25
+neon.exe $(TargetPath)
+pause</PostBuildEvent>
+  </PropertyGroup>
 </Project>
