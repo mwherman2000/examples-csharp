@@ -6,4 +6,4 @@ This independent, open source project is 100% community-supported by people like
 
 # Origins
 
-This collection of C#.NEO smart contract examples started out as simple fork of the [neo-project/examples-csharp](https://github.com/neo-project/examples-csharp) project.  It now grown substantially (and is in a bit of a mess actually). It will never be merged back into the original project.  That's the plan for now.
+This collection of C#.NEO smart contract examples started out as simple fork of the [neo-project/examples-csharp](https://github.com/neo-project/examples-csharp) project with 6 older examples.  The collection in this fork has now grown substantially (and is in a bit of a mess actually) with over 30 examples. It will never be merged back into the original project.  At least, that's the plan for now.
