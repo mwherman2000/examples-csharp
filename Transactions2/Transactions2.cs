@@ -9,43 +9,65 @@ namespace Transactions2
     public class Transactions2 : SmartContract
     {
         // WIF from the NEO privatenet Python environment
-        public const string WIF2 = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
-        public const string WIF2AccountAddress = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
-        public const string WIF2AccountPublicKey = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
+        public const string WIF2                     = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
+        public const string WIF2AccountAddress       = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
+        public const string WIF2AccountPublicKey     = "031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a";
         public const string WIF2AccountPrivateKeyHex = "1dd37fba80fec4e6a6f13fd708d8dcb3b29def768017052f6c930fa1c5d90bbb";
         public static readonly byte[] WIF2AccountAddressScriptHash = WIF2AccountAddress.ToScriptHash();
 
-        public const string WIF3 = "L3EPPjtC9gd1R1D5XPjkug755wxGV7QiGdNoDq7QBetkBfsYzJSi";
-        public const string WIF3AccountAddress = "AWWzEJMfyoMoS4GiV72rB3E3euVAyR9eRw";
-        public const string WIF3AccountPublicKey = "02809b1eaf5bdb22049b6fc543280bf8eb612a567dc49575e2c630d97f7f666614";
-        public const string WIF3AccountPrivateKeyHex = "b35f44b851cb08e00e6c281350451f925e4ba6b847897196bfc667fca5b2fe13";
+        public const string WIF3                     = "L4SVwFWyzHQonAyBcCMqJuSHz8RuBqieWxxmxrrXUrsQ4hkJYpSC";
+        public const string WIF3AccountAddress       = "AeD4zRqCoFnZ2AFHr5UseiJEZ9ySxTAWG2";
+        public const string WIF3AccountPublicKey     = "037126adc0c5637faff57ff1dfc4fa0b2134ab4bb2135681779a0c08202301b003";
+        public const string WIF3AccountPrivateKeyHex = "d770da3a76e8314bd810a8d0af69ecb771915efd1674330b3bb5beb79917a472";
         public static readonly byte[] WIF3AccountAddressScriptHash = WIF3AccountAddress.ToScriptHash();
+
+        public const string SampleScriptHash = "0x2a846575ffad543ac226aaca17905c48aee38594";
+        public static readonly byte[] SampleScriptHashAsByteArray = "0x2a846575ffad543ac226aaca17905c48aee38594".AsByteArray();
 
         public static bool Main()
         {
-            Runtime.Log("WIF2Account test...");
+            Runtime.Notify("WIF2Account (from privatenet WIF...");
             Runtime.Notify("WIF2", /* WIF2.Length, */ WIF2);
             Runtime.Notify("WIF2AccountAddress", /* WIF2AccountAddress.Length, */ WIF2AccountAddress);
             Runtime.Notify("WIF2AccountPublicKey", /* WIF2AccountPublicKey.Length, */ WIF2AccountPublicKey);
             Runtime.Notify("WIF2AccountPrivateKeyHex", /* WIF2AccountPrivateKeyHex.Length, */ WIF2AccountPrivateKeyHex);
             Runtime.Notify("WIF2AccountScriptHash", /* WIF2AccountAddressScriptHash.Length, */ WIF2AccountAddressScriptHash);
+            Runtime.Notify("WIF2AccountScriptHash$BIN", /* WIF2AccountAddressScriptHash.Length, */ WIF2AccountAddressScriptHash);
+            Runtime.Notify("WIF2AccountScriptHash$STR", /* WIF2AccountAddressScriptHash.Length, */ WIF2AccountAddressScriptHash);
+            Runtime.Notify("WIF2AccountScriptHash$160", /* WIF2AccountAddressScriptHash.Length, */ WIF2AccountAddressScriptHash);
 
-            Runtime.Log("WIF3Account test...");
+            Runtime.Notify("WIF3Account (transient - new with each new neo-gui wallet...");
             Runtime.Notify("WIF3", /* WIF3.Length, */ WIF3);
             Runtime.Notify("WIF3AccountAddress", /* WIF3AccountAddress.Length, */ WIF3AccountAddress);
             Runtime.Notify("WIF3AccountPublicKey", /* WIF3AccountPublicKey.Length, */ WIF3AccountPublicKey);
             Runtime.Notify("WIF3AccountPrivateKeyHex", /* WIF3AccountPrivateKeyHex.Length, */ WIF3AccountPrivateKeyHex);
             Runtime.Notify("WIF3AccountScriptHash", /* WIF3AccountAddressScriptHash.Length, */ WIF3AccountAddressScriptHash);
+            Runtime.Notify("WIF3AccountScriptHash$BIN", /* WIF3AccountAddressScriptHash.Length, */ WIF3AccountAddressScriptHash);
+            Runtime.Notify("WIF3AccountScriptHash$STR", /* WIF3AccountAddressScriptHash.Length, */ WIF3AccountAddressScriptHash);
+            Runtime.Notify("WIF3AccountScriptHash$160", /* WIF3AccountAddressScriptHash.Length, */ WIF3AccountAddressScriptHash);
 
-            Runtime.Log("ExecutionEngine tests...");
+            Runtime.Notify("ExecutionEngine tests...");
             //byte[] csh = ExecutionEngine.CallingScriptHash;
             //if (csh.Length> 0 ) Runtime.Notify("CallingScriptHash:", csh.Length, csh);
             byte[] ensh = ExecutionEngine.EntryScriptHash;
-            if (ensh.Length > 0) Runtime.Notify("ExecutionEngine.EntryScriptHash: ", /* ensh.Length, */ ensh);
+            if (ensh.Length > 0)
+            {
+                Runtime.Notify("ExecutionEngine.EntryScriptHash: ", /* ensh.Length, */ ensh);
+                Runtime.Notify("ExecutionEngine.EntryScriptHash$STR: ", /* ensh.Length, */ ensh);
+            }
             byte[] exsh = ExecutionEngine.ExecutingScriptHash;
-            if (exsh.Length > 0) Runtime.Notify("ExecutionEngine.ExecutingScriptHash:", /* exsh.Length, */ exsh);
+            if (exsh.Length > 0)
+            {
+                Runtime.Notify("ExecutionEngine.ExecutingScriptHash:", /* exsh.Length, */ exsh);
+                Runtime.Notify("ExecutionEngine.ExecutingScriptHash$STR:", /* exsh.Length, */ exsh);
+            }
 
-            //Runtime.Log("Some simple tests...");
+            Runtime.Notify("SampleScriptHash:", SampleScriptHash);
+            Runtime.Notify("SampleScriptHash$STR:", SampleScriptHash);
+            Runtime.Notify("SampleScriptHashAsByteArray", SampleScriptHashAsByteArray);
+            Runtime.Notify("SampleScriptHashAsByteArray$STR", SampleScriptHashAsByteArray);
+
+            //Runtime.Notify("Some simple tests...");
             //Runtime.Notify("0xbadbad", 0xbadbad);
             //Runtime.Notify("(Boolean)true", (Boolean)true);
             //Runtime.Notify("(Boolean)false", (Boolean)false);
@@ -61,7 +83,7 @@ namespace Transactions2
             //Runtime.Notify("Value$gas BI 123456789", (BigInteger)123456789);
 
             Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
-            Runtime.Log("ExecutionEngine tests: tx.GetInputs()...");
+            Runtime.Notify("ExecutionEngine tests: tx.GetInputs()...");
             TransactionInput[] inputs = tx.GetInputs();
             Runtime.Notify("GetInputs:" , inputs.Length);
             foreach (TransactionInput i in inputs)
@@ -70,7 +92,7 @@ namespace Transactions2
                 Runtime.Notify("GetInputs: PrevIndex", i.PrevIndex);
             }
 
-            Runtime.Log("ExecutionEngine tests: tx.GetOutputs()...");
+            Runtime.Notify("ExecutionEngine tests: tx.GetOutputs()...");
             TransactionOutput[] outputs = tx.GetOutputs();
             Runtime.Notify("GetOutputs:", outputs.Length);
             foreach (TransactionOutput o in outputs)
@@ -80,7 +102,7 @@ namespace Transactions2
                 Runtime.Notify("GetOutputs: Value$NEO", o.Value);
             }
 
-            Runtime.Log("ExecutionEngine tests: tx.GetReferences()...");
+            Runtime.Notify("ExecutionEngine tests: tx.GetReferences()...");
             TransactionOutput[] refs = tx.GetReferences();
             Runtime.Notify("GetReferences:", refs.Length);
             foreach (TransactionOutput r in refs)
@@ -90,7 +112,7 @@ namespace Transactions2
                 Runtime.Notify("GetReferences: Value$NEO", r.Value);
             }
 
-            //Runtime.Log("tx.GetUnspentCoins...");
+            //Runtime.Notify("tx.GetUnspentCoins...");
             //TransactionOutput[] unspents = tx.GetUnspentCoins();
             //Runtime.Notify("GetUnspentCoins:", unspents.Length);
             //foreach (TransactionOutput c in unspents)

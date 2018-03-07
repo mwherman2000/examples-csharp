@@ -1307,7 +1307,7 @@ namespace NeoPersistableClass
 
     /// <summary>
     /// Point class
-    /// Reference implementation of a NPC class consisting of a pair of x and y coorinates
+    /// Reference implementation of a NPC class consisting of a pair of x and y coordinates
     /// </summary>
     /// <seealso cref="NeoPersistableClass.NeoTrace" />
     public class Point : NeoTrace
