@@ -125,7 +125,8 @@ namespace VMTest2
             }
 
             Console.WriteLine("engine.State:\t{0}", engine.State.ToString());
-            DumpExecutionContext(engine);
+            DumpInvocationStack(engine);
+            DumpEngineExecutionContext(engine);
             DumpAltStack(engine);
             DumpEvaluationStack(engine);
 
@@ -136,6 +137,21 @@ namespace VMTest2
             var result3 = engine.EvaluationStack.Peek().GetString(); // set the return value here
             Console.WriteLine($"Execution result {result3}");
             Console.ReadLine();
+        }
+
+        private static void DumpInvocationStack(ExecutionEngine engine)
+        {
+            var stack = engine.InvocationStack;
+
+            int offset = 0;
+            Console.WriteLine("InvocationStack ----------");
+            Console.WriteLine("InvocationStack.Count:\t{0}", stack.Count);
+            foreach (var ctx in stack)
+            {
+                Console.WriteLine("InvocationStack:\t{0}\t{1}", offset, ctx.ToString());
+                DumpExecutionContext(ctx);
+                offset++;
+            }
         }
 
         private static void DumpAltStack(ExecutionEngine engine)
@@ -258,27 +274,31 @@ namespace VMTest2
             }
         }
 
-        private static void DumpExecutionContext(ExecutionEngine engine)
+        private static void DumpEngineExecutionContext(ExecutionEngine engine)
         {
-            Console.WriteLine("CurrentContext ----------");
+            Console.WriteLine("engine.CurrentContext ----------");
             using (var ctx = engine.CurrentContext)
             {
-                Console.WriteLine("State:\t" + engine.State.ToString());
-                Console.WriteLine("InstructionPointer:\t" + ctx.InstructionPointer.ToString());
-                Console.WriteLine("NextInstruction:\t" + ctx.NextInstruction.ToString());
-                var script = ctx.Script.ToArray();
-                int offset = 0;
-                Neo.VM.OpCode eOpCode;
-                string eOpCodeName;
-                foreach (var opcode in script)
-                {
-                    eOpCode = (Neo.VM.OpCode)Enum.ToObject(typeof(Neo.VM.OpCode), opcode);
-                    eOpCodeName = eOpCode.ToString();
-                    string tag = "";
-                    if (offset == ctx.InstructionPointer) tag = "<<< NEXT";
-                    Console.WriteLine("opcode:\t{0}\t{1}\t{2}\t{3,-16}\t{4,-16}\t{5}", offset, opcode, opcode.ToString("X"), eOpCode.ToString(), eOpCodeName, tag);
-                    offset++;
-                }
+                DumpExecutionContext(ctx);
+            }
+        }
+
+        private static void DumpExecutionContext(ExecutionContext ctx)
+        {
+                 Console.WriteLine("InstructionPointer:\t" + ctx.InstructionPointer.ToString());
+            Console.WriteLine("NextInstruction:\t" + ctx.NextInstruction.ToString());
+            var script = ctx.Script.ToArray();
+            int offset = 0;
+            Neo.VM.OpCode eOpCode;
+            string eOpCodeName;
+            foreach (var opcode in script)
+            {
+                eOpCode = (Neo.VM.OpCode)Enum.ToObject(typeof(Neo.VM.OpCode), opcode);
+                eOpCodeName = eOpCode.ToString();
+                string tag = "";
+                if (offset == ctx.InstructionPointer) tag = "<<< NEXT";
+                Console.WriteLine("opcode:\t{0}\t{1}\t{2}\t{3,-16}\t{4,-16}\t{5}", offset, opcode, opcode.ToString("X"), eOpCode.ToString(), eOpCodeName, tag);
+                offset++;
             }
         }
 
