@@ -89,6 +89,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strings2", "Strings2\String
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageGas16x32", "StorageGas16x32\StorageGas16x32.csproj", "{4627E8CA-500D-4F55-9B5E-05125CD02583}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportedStandards1", "SupportedStandards1\SupportedStandards1.csproj", "{083D2B7A-BE65-4DB4-8281-F9615254AB5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -263,6 +265,10 @@ Global
 		{4627E8CA-500D-4F55-9B5E-05125CD02583}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4627E8CA-500D-4F55-9B5E-05125CD02583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4627E8CA-500D-4F55-9B5E-05125CD02583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083D2B7A-BE65-4DB4-8281-F9615254AB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083D2B7A-BE65-4DB4-8281-F9615254AB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083D2B7A-BE65-4DB4-8281-F9615254AB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083D2B7A-BE65-4DB4-8281-F9615254AB5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
